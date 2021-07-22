@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="roleError" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.labProject.Home">
+   <children>
+      <TabPane fx:id="allTabs" layoutX="14.0" layoutY="19.0" prefHeight="361.0" prefWidth="264.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="Consumer">
+              <GridPane alignment="CENTER" hgap="10.0" prefHeight="332.0" prefWidth="318.0" vgap="10.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1">
+                  <columnConstraints>
+                      <ColumnConstraints fillWidth="false" halignment="LEFT" hgrow="ALWAYS" maxWidth="245.66666285196936" minWidth="166.6666590372721" prefWidth="225.66666666666663" />
+                  </columnConstraints>
+                  <ImageView fx:id="imgConsumer" fitHeight="81.0" fitWidth="126.0" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                      <image>
+                          <Image url="@../../../imgs/shopper.png" />
+                      </image>
+                  </ImageView>
+                  <TextField fx:id="userNameFieldConsumer" minWidth="-Infinity" onAction="#okConsumer" prefHeight="25.0" prefWidth="203.0" promptText="Username" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                      <GridPane.rowIndex>2</GridPane.rowIndex>
+                  </TextField>
+                  <PasswordField fx:id="passwordFieldConsumer" onAction="#okConsumer" prefHeight="25.0" prefWidth="204.0" promptText="Password" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                      <GridPane.rowIndex>3</GridPane.rowIndex>
+                  </PasswordField>
+                  <Button fx:id="okbtnConsumer" mnemonicParsing="false" onAction="#okConsumer" text="Enter" GridPane.halignment="LEFT" GridPane.rowIndex="5" GridPane.valignment="CENTER">
+                      <GridPane.margin>
+                          <Insets left="30.0" />
+                      </GridPane.margin></Button>
+                  <Button fx:id="cancelbtnConsumer" alignment="CENTER" mnemonicParsing="false" onAction="#cancel" text="Cancel" GridPane.halignment="RIGHT" GridPane.rowIndex="5" GridPane.valignment="CENTER">
+                      <GridPane.margin>
+                          <Insets right="30.0" />
+                      </GridPane.margin></Button>
+                  <Label text="Consumer" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                  <Label fx:id="errorLabelConsumer" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
+                  <rowConstraints>
+                      <RowConstraints />
+                      <RowConstraints maxHeight="25.0" minHeight="10.0" prefHeight="21.0" />
+                      <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="29.0" />
+                      <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="20.0" />
+                     <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="20.0" />
+                      <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="20.0" />
+                  </rowConstraints>
+              </GridPane>
+
+          </Tab>
+
+            <Tab text="Producer">
+                <GridPane alignment="CENTER" hgap="5" prefHeight="332.0" prefWidth="318.0" vgap="10.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1">
+                    <columnConstraints>
+                        <ColumnConstraints fillWidth="false" halignment="LEFT" hgrow="ALWAYS" maxWidth="245.66666285196936" minWidth="166.6666590372721" prefWidth="225.66666666666663" />
+                    </columnConstraints>
+                    <ImageView fx:id="imgProducer" fitHeight="81.0" fitWidth="126.0" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                        <image>
+                            <Image url="@../../../imgs/farmer.png" />
+                        </image>
+                    </ImageView>
+                    <TextField fx:id="userNameFieldProducer" minWidth="-Infinity" onAction="#okProducer" prefHeight="25.0" prefWidth="203.0" promptText="Username" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                        <GridPane.rowIndex>2</GridPane.rowIndex>
+                    </TextField>
+                    <PasswordField fx:id="passwordFieldProducer" onAction="#okProducer" prefHeight="25.0" prefWidth="204.0" promptText="Password" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                        <GridPane.rowIndex>3</GridPane.rowIndex>
+                    </PasswordField>
+                    <Button fx:id="okbtnProducer" mnemonicParsing="false" onAction="#okProducer" text="Enter" GridPane.halignment="LEFT" GridPane.rowIndex="6" GridPane.valignment="CENTER">
+                        <GridPane.margin>
+                            <Insets left="30.0" />
+                        </GridPane.margin></Button>
+                    <Button fx:id="cancelbtnProducer" alignment="CENTER" mnemonicParsing="false" onAction="#cancel" text="Cancel" GridPane.halignment="RIGHT" GridPane.rowIndex="6" GridPane.valignment="CENTER">
+                        <GridPane.margin>
+                            <Insets right="30.0" />
+                        </GridPane.margin></Button>
+                    <Label text="Consumer" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                    <Label fx:id="errorLabelProducer" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
+                    <rowConstraints>
+                        <RowConstraints />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints maxHeight="25.0" minHeight="10.0" prefHeight="20.0" />
+                        <RowConstraints maxHeight="0.0" minHeight="0.0" prefHeight="0.0" />
+                        <RowConstraints maxHeight="25.333333333333314" minHeight="25.333333333333314" prefHeight="25.333333333333314" />
+                    </rowConstraints>
+                </GridPane>
+            </Tab>
+            <Tab text="Create Account">
+                <GridPane alignment="CENTER" hgap="5" prefHeight="332.0" prefWidth="318.0" vgap="5" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1">
+                    <columnConstraints>
+                        <ColumnConstraints fillWidth="false" halignment="LEFT" hgrow="ALWAYS" maxWidth="245.66666285196936" minWidth="166.6666590372721" prefWidth="225.66666666666663" />
+                    </columnConstraints>
+                    <ImageView fx:id="imgCA" fitHeight="81.0" fitWidth="126.0" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                        <image>
+                            <Image url="@../../../imgs/CA.png" />
+                        </image>
+                    </ImageView>
+                    <TextField fx:id="mobileCA" minWidth="-Infinity" onAction="#okProducer" prefHeight="25.0" prefWidth="203.0" promptText="Mobile Number" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                        <GridPane.rowIndex>2</GridPane.rowIndex>
+                    </TextField>
+                    <PasswordField fx:id="passwordFieldCA" onAction="#okProducer" prefHeight="25.0" prefWidth="204.0" promptText="Password" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                        <GridPane.rowIndex>3</GridPane.rowIndex>
+                    </PasswordField>
+                    <Button fx:id="okbtnCA" mnemonicParsing="false" onAction="#createUserID" text="Enter" GridPane.halignment="LEFT" GridPane.rowIndex="5" GridPane.valignment="CENTER">
+                        <GridPane.margin>
+                            <Insets left="30.0" />
+                        </GridPane.margin></Button>
+                    <Button fx:id="cancelbtnCA" alignment="CENTER" mnemonicParsing="false" onAction="#cancel" text="Cancel" GridPane.halignment="RIGHT" GridPane.rowIndex="5" GridPane.valignment="CENTER">
+                        <GridPane.margin>
+                            <Insets right="30.0" />
+                        </GridPane.margin></Button>
+                  <TextField fx:id="NameCA" layoutX="40.0" layoutY="171.0" minWidth="-Infinity" onAction="#okProducer" prefHeight="25.0" prefWidth="203.0" promptText="Name" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                  <ChoiceBox fx:id="typeCA" accessibleText="Choose Producer or Consumer Type" minHeight="-Infinity" prefHeight="30.0" prefWidth="150.0" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <effect>
+                        <Glow />
+                     </effect>
+                     <padding>
+                        <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
+                     </padding>
+                  </ChoiceBox>
+                    <rowConstraints>
+                        <RowConstraints />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" />
+                        <RowConstraints prefHeight="30.0" />
+                        <RowConstraints maxHeight="25.333333333333343" minHeight="8.0" prefHeight="30.0" />
+                     <RowConstraints maxHeight="25.333333333333343" minHeight="10.0" prefHeight="30.0" />
+                        <RowConstraints maxHeight="29.333333333333343" minHeight="1.3333333333333144" prefHeight="30.0" />
+                    </rowConstraints>
+                </GridPane>
+            </Tab>
+        </tabs>
+      </TabPane>
+      <TitledPane fx:id="errorPane" collapsible="false" layoutX="322.0" layoutY="65.0" text="Error">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="141.0" prefWidth="200.0">
+               <children>
+                  <Button fx:id="typeErrorbtn" layoutX="84.0" layoutY="102.0" mnemonicParsing="false" onAction="#closeRollError" text="Ok">
+                     <effect>
+                        <Glow />
+                     </effect></Button>
+                  <Label fx:id="errorPaneLabel" layoutX="23.0" layoutY="14.0" prefHeight="81.0" prefWidth="153.0" text="Please pick a role: Producer or Consumer" textAlignment="CENTER" wrapText="true" />
+               </children>
+            </AnchorPane>
+        </content>
+         <cursor>
+            <Cursor fx:constant="DEFAULT" />
+         </cursor>
+      </TitledPane>
+   </children>
+</AnchorPane>
