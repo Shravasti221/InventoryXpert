@@ -44,6 +44,7 @@ public class Consumer_controller implements Initializable{
 
     @FXML
     private TableView searchTable;
+
     public void initialize( URL location, ResourceBundle resources) {
         ObservableList<ItemBasic> searchData = FXCollections.observableArrayList();
         for(ItemBasic item: g.i)

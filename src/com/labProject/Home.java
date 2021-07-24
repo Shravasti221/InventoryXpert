@@ -7,15 +7,14 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import java.util.ArrayList;
 import java.util.regex.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class Home implements Initializable{
     //for new UserIDs for producers and consumers
-    static int refC = 0;
-    static int refP = 0;
-
+    ArrayList<Thread> t;
     private final ObjectProperty<User> user = new SimpleObjectProperty<>();
 
     public final ObjectProperty<User> userProperty() {
@@ -66,6 +65,9 @@ public class Home implements Initializable{
     @FXML
     private Label errorPaneLabel;
 
+
+    Godown g;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         typeCA.getItems().add("Consumer");
@@ -82,6 +84,8 @@ public class Home implements Initializable{
         String password = passwordFieldConsumer.getText();
         if (authenticate(userName, password)) {
             errorLabelConsumer.setText("");
+            Consumer c = g.getConsumer(userName);
+            //createConsumerThread();
         } else {
             errorLabelConsumer.setText("Incorrect login details");
         }
@@ -127,30 +131,41 @@ public class Home implements Initializable{
         String mNo = mobileCA.getText();
         String name = NameCA.getText();
         String pwd = passwordFieldCA.getText();
-        String value = (String) typeCA.getValue();
+        String roleName = (String) typeCA.getValue();
 
         if(mNo.isEmpty() || isValidMobileNo(mNo)) writeToErrorPane("Error","Enter valid mobile number");
         else if(name.isEmpty()) writeToErrorPane("Error","Enter valid name");
         else if(pwd.isEmpty()) writeToErrorPane("Error","Enter valid password");
 
-        else if (value == null){
+        else if (roleName == null){
             writeToErrorPane("Error", "Choose a Role: Producer or Consumer.");
         }
-        else if(value.equalsIgnoreCase("Consumer")) {
+        else if(roleName.equalsIgnoreCase("Consumer")) {
             synchronized (this) {
-                ID = "CONS" + this.refC++;
-                writeToErrorPane("Message", "Account Created with UserID as " + ID + "Please remember this ID and use it to login to Consumer Page");
+                ID = g.getConsumerID();
+                writeToErrorPane("Message", "Account Created with UserID as " + ID + ". Please remember this ID and use it to login to Consumer Page");
             }
         }
         else{
             synchronized (this) {
-                ID = "PROD" + refP++;
-                writeToErrorPane("Message", "Account Created with UserID as " + ID + "Please remember this ID and use it to login to Producer Page");
+                ID = g.getProducerID();
+                writeToErrorPane("Message", "Account Created with UserID as " + ID + ". Please remember this ID and use it to login to Producer Page");
             }
         }
-        User U = new User(ID, pwd);
-        U.setMobile(mNo);
-        U.setUserName(name);
+
+        if (roleName=="Producer") {
+            Producer U = new Producer(ID, pwd);
+            U.setMobile(mNo);
+            U.setUserName(name);
+            g.addProducer(U);
+        }
+
+        if (roleName=="Consumer") {
+            Consumer U = new Consumer(ID, pwd);
+            U.setMobile(mNo);
+            U.setUserName(name);
+            g.addConsumer(U);
+        }
     }
 
     private static boolean isValidMobileNo(String str)
@@ -168,9 +183,9 @@ public class Home implements Initializable{
         int index = Integer.parseInt(userName.replaceAll("[^0-9]", ""));
         try {
             if (role.equalsIgnoreCase("PROD"))
-                return Main.godown.p.get(index).checkPassword(password);
+                return g.checkProducerPassword(userName, password);
             else if (role.equalsIgnoreCase("CONS"))
-                return Main.godown.c.get(index).checkPassword(password);
+                return g.checkProducerPassword(userName, password);
         }catch (IndexOutOfBoundsException e){
             System.out.println("Tried to access out of bounds index for either consumer or producer list in godown. Official error: " + e);
             return false;
