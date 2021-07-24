@@ -60,11 +60,6 @@ public class Godown{
         }
     }
 
-    IDextractor assignlambda(){
-
-        };
-        return p;
-    }
     synchronized public void addItem(ItemBasic item){
         i.add(item);
     }
