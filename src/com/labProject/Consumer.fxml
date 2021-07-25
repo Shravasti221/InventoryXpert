@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="576.0" prefWidth="1050.0" style="-fx-background-color: #02030A;" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.labProject.Consumer_controller">
+<AnchorPane fx :controller="com.labProject.itemController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="576.0" prefWidth="1050.0" style="-fx-background-color: #02030A;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.labProject.Consumer_controller">
     <children>
         <TextField layoutX="792.0" layoutY="31.0" prefHeight="27.0" prefWidth="183.0" promptText="search" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" />
         <TitledPane fx:id="signoutPane" alignment="CENTER" collapsible="false" layoutX="300.0" layoutY="200.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="300.0" style="-fx-border-color: #edfeff; visibility: false;" stylesheets="@style.css" text="Sign out message" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1">
@@ -181,10 +181,10 @@
       <TableView fx:id="cartTable" layoutX="344.0" layoutY="210.0" prefHeight="257.0" prefWidth="493.0">
          <columns>
             <TableColumn fx:id="itemIDCart" editable="false" prefWidth="75.0" text="ItemID" />
-            <TableColumn fx:id="itemNameCart" editable="false" prefWidth="115.33328247070312" text="Item" />
             <TableColumn fx:id="qtyCart" prefWidth="71.66668701171875" text="Qty" visible="false" />
             <TableColumn fx:id="costCart" editable="false" prefWidth="109.66668701171875" text="Cost per unit" />
             <TableColumn fx:id="amountCart" editable="false" prefWidth="119.6666259765625" text="Amount" />
+            <TableColumn fx:id="itemNameCart" editable="false" prefWidth="115.33328247070312" text="Item" />
          </columns>
       </TableView>
     <Button fx:id="btnStartSession" layoutX="569.0" layoutY="262.0" mnemonicParsing="false" onAction="#setupConsumerSpeceficStage" text="CLICK TO START SESSION" />

@@ -1,23 +1,29 @@
 package com.labProject;
 
 
+import javafx.beans.property.SimpleFloatProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
 public class ItemBasic{
-    float price;
-    int space_per_unit;
-    int qty;
-    String whoProduced;
-    String unit;
+    private SimpleFloatProperty price;
+    private SimpleIntegerProperty space_per_unit;
+    private SimpleIntegerProperty qty;
+    private SimpleStringProperty whoProduced;
+    private SimpleStringProperty unit;
     // in case of producer, the price he is selling at;
     //in case of consumer the price he is buying at.
-    String name;
-    String ID;
+    private SimpleStringProperty name;
+    private SimpleStringProperty ID;
+
+
     //Issued by the godown classHK,/LL
 
     float getSpace(){
-        return qty * space_per_unit;
+        return qty.get() * space_per_unit.get();
     }
 
     @Override
@@ -28,34 +34,34 @@ public class ItemBasic{
                 '}';
     }
     public String getName(){
-        return this.name;
+        return this.name.get();
     }
 
     public String getID() {
-        return ID;
+        return ID.get();
     }
 
     public int getQty() {
-        return qty;
+        return qty.get();
     }
 
     public float getAmount(){
-        return qty*price;
+        return qty.get() *price.get();
     }
 
     public float getPrice() {
-        return price;
+        return price.get();
     }
 
     public String getUnit() {
-        return unit;
+        return unit.get();
     }
 
     public void setQty(int q) {
-        this.qty = q;
+        this.qty = new SimpleIntegerProperty(q);
     }
 
     public void setPrice(float price) {
-        this.price = price;
+        this.price = new SimpleFloatProperty(price);
     }
 }
