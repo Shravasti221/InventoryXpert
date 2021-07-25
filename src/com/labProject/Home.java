@@ -1,4 +1,5 @@
 package com.labProject;
+import javafx.application.Platform;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
@@ -13,8 +14,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class Home implements Initializable{
-    //for new UserIDs for producers and consumers
-    ArrayList<Thread> t;
     private final ObjectProperty<User> user = new SimpleObjectProperty<>();
 
     public final ObjectProperty<User> userProperty() {
@@ -65,9 +64,6 @@ public class Home implements Initializable{
     @FXML
     private Label errorPaneLabel;
 
-
-    Godown g;
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         typeCA.getItems().add("Consumer");
@@ -83,9 +79,11 @@ public class Home implements Initializable{
         String userName = userNameFieldConsumer.getText();
         String password = passwordFieldConsumer.getText();
         if (authenticate(userName, password)) {
+            System.out.println("Username and ID found");
             errorLabelConsumer.setText("");
-            Consumer c = g.getConsumer(userName);
-            //createConsumerThread();
+            Consumer c = Main.godown.getConsumer(userName);
+            ConsumerThread c_ = new ConsumerThread(c);
+            Platform.runLater(c_);
         } else {
             errorLabelConsumer.setText("Incorrect login details");
         }
@@ -142,13 +140,13 @@ public class Home implements Initializable{
         }
         else if(roleName.equalsIgnoreCase("Consumer")) {
             synchronized (this) {
-                ID = g.getConsumerID();
+                ID = Main.godown.getConsumerID();
                 writeToErrorPane("Message", "Account Created with UserID as " + ID + ". Please remember this ID and use it to login to Consumer Page");
             }
         }
         else{
             synchronized (this) {
-                ID = g.getProducerID();
+                ID = Main.godown.getProducerID();
                 writeToErrorPane("Message", "Account Created with UserID as " + ID + ". Please remember this ID and use it to login to Producer Page");
             }
         }
@@ -157,14 +155,14 @@ public class Home implements Initializable{
             Producer U = new Producer(ID, pwd);
             U.setMobile(mNo);
             U.setUserName(name);
-            g.addProducer(U);
+            Main.godown.addProducer(U);
         }
 
         if (roleName=="Consumer") {
             Consumer U = new Consumer(ID, pwd);
             U.setMobile(mNo);
             U.setUserName(name);
-            g.addConsumer(U);
+            Main.godown.addConsumer(U);
         }
     }
 
@@ -182,14 +180,16 @@ public class Home implements Initializable{
         String role = userName.replaceAll("[0-9]", "");
         try {
             if (role.equalsIgnoreCase("PROD"))
-                return g.checkProducerPassword(userName, password);
+                return Main.godown.checkProducerPassword(userName, password);
             else if (role.equalsIgnoreCase("CONS"))
-                return g.checkConsumerPassword(userName, password);
-        }catch (IndexOutOfBoundsException e){
-            System.out.println("Tried to access out of bounds index for either consumer or producer list in godown. Official error: " + e);
+                return Main.godown.checkConsumerPassword(userName, password);
+        }catch (IndexOutOfBoundsException e1){
+            System.out.println("Tried to access out of bounds index for either consumer or producer list in godown. Official error: " + e1);
             return false;
+        }catch (NumberFormatException e2){
+            System.out.println("Incorrect username that cannot be parsed by parseInt. Official error: " + e2);
+            return false ;
         }
-
         return false ;
     }
 

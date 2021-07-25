@@ -4,10 +4,8 @@ package com.labProject;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class ItemBasic implements Serializable {
-    private static final long serialVersionUID = 1L;
-    float CostPrice;
-    float SellPrice;
+public class ItemBasic{
+    float price;
     int space_per_unit;
     int qty;
     String whoProduced;
@@ -41,22 +39,23 @@ public class ItemBasic implements Serializable {
         return qty;
     }
 
-    public float getCostPrice() {
-        return CostPrice;
+    public float getAmount(){
+        return qty*price;
     }
 
-    public float getSellPrice() {
-        return SellPrice;
+    public float getPrice() {
+        return price;
     }
 
     public String getUnit() {
         return unit;
     }
 
-    public void addToCart(){
-
+    public void setQty(int q) {
+        this.qty = q;
     }
 
-
-    //use dynamic dispatch?
+    public void setPrice(float price) {
+        this.price = price;
+    }
 }

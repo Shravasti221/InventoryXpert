@@ -8,29 +8,25 @@ public class User implements Serializable {
     private final String ID;
     private final String password;
     private String mobile;
-    private ArrayList<ItemBasic> belongings;
 
     public User(){
         this.userName = null;
         this.ID = null;
         this.password = null;
         this. mobile = null;
-        this.belongings = null;
     }
     public User(String ID, String password) {
         this.password = password ;
         this.ID = ID;
-        belongings = null;
     }
     public User(String ID, String n, String mno, String password) {
         this.password = password ;
         this.ID = ID;
         this.mobile = mno;
         this.userName = n;
-        belongings = null;
     }
 
-    public String getUserName() {
+    public String getName() {
         return userName ;
     }
     public String getID(){
@@ -46,12 +42,19 @@ public class User implements Serializable {
     }
 
     public boolean checkPassword(String pwd){
-        return this.password.equals(pwd);
+        boolean ret_val = false;
+        try{
+            ret_val = this.password.equals(pwd);
+        }catch(NullPointerException e){
+            System.out.println("No password was provided");
+            return false;
+        }
+        return ret_val;
     }
 
     @Override
     public String toString() {
-        return userName ;
+        return "UserName:"+ userName + " UserID " + ID + " Password:" + password;
     }
 
 
