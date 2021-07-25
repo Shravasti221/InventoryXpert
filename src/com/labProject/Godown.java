@@ -72,7 +72,10 @@ public class Godown{
     synchronized public String getConsumerID(){return "CONS"+c.size();}
     synchronized public String getProducerID(){return "PROD"+p.size();}
     synchronized public String getItemID(){return "PROD"+(++itemIDCount);}
+
     public Consumer getConsumer(String ID){return c.get(index.get(ID));}
+    public Producer getProducer(String ID){return p.get(index.get(ID));}
+
     boolean checkConsumerPassword(String ID, String pwd){return c.get(index.get(ID)).checkPassword(pwd);}
     boolean checkProducerPassword(String ID, String pwd){return c.get(index.get(ID)).checkPassword(pwd);}
 

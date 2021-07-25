@@ -175,17 +175,16 @@ public class Home implements Initializable{
         return (match.find() && match.group().equals(str));
     }
 
-    private static boolean authenticate(String userName, String password) {
+    private boolean authenticate(String userName, String password) {
         if (userName.isEmpty() || password.isEmpty()) {
             return false ;
         }
         String role = userName.replaceAll("[0-9]", "");
-        int index = Integer.parseInt(userName.replaceAll("[^0-9]", ""));
         try {
             if (role.equalsIgnoreCase("PROD"))
                 return g.checkProducerPassword(userName, password);
             else if (role.equalsIgnoreCase("CONS"))
-                return g.checkProducerPassword(userName, password);
+                return g.checkConsumerPassword(userName, password);
         }catch (IndexOutOfBoundsException e){
             System.out.println("Tried to access out of bounds index for either consumer or producer list in godown. Official error: " + e);
             return false;
@@ -203,6 +202,8 @@ public class Home implements Initializable{
         passwordFieldCA.setText("");
         mobileCA.setText("");
     }
+
+
 
 
 }
