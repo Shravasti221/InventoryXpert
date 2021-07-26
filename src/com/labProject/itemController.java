@@ -23,35 +23,35 @@ public class itemController implements Initializable
 
 
     int assign_size(String type_of_obj){
-        if(type_of_obj == "carton_large")
+        if(type_of_obj.equals("carton_large"))
             return 100;
-        else if(type_of_obj == "carton_medium")
+        else if(type_of_obj.equals("carton_medium"))
             return 50;
-        else if(type_of_obj == "carton_small")
+        else if(type_of_obj.equals("carton_small"))
             return 25;
-        else if(type_of_obj == "Weight_KiloGrams")
+        else if(type_of_obj.equals("Weight_KiloGrams"))
             return 30;
-        else if(type_of_obj == "Weight_Grams")
+        else if(type_of_obj.equals("Weight_Grams"))
             return 3;
-        else if(type_of_obj == "beverage_100ml")
+        else if(type_of_obj.equals("beverage_100ml"))
             return 25;
-        else if(type_of_obj == "beverage_250ml")
+        else if(type_of_obj.equals("beverage_250ml"))
             return 30;
-        else if(type_of_obj == "beverage_500ml")
+        else if(type_of_obj.equals("beverage_500ml"))
             return 40;
-        else if(type_of_obj == "beverage_1l")
+        else if(type_of_obj.equals("beverage_1l"))
             return 55;
-        else if(type_of_obj == "beverage_2l")
+        else if(type_of_obj.equals("beverage_2l"))
             return 75;
-        else if(type_of_obj == "beverage_5l")
+        else if(type_of_obj.equals("beverage_5l"))
             return 120;
-        else if(type_of_obj == "sachets")
+        else if(type_of_obj.equals("sachets"))
             return 3;
-        else if(type_of_obj == "packets_small")
+        else if(type_of_obj.equals("packets_small") )
             return 10;
-        else if(type_of_obj == "packets_medium")
+        else if(type_of_obj.equals("packets_medium"))
             return 20;
-        else if(type_of_obj == "packets_large")
+        else if(type_of_obj.equals("packets_large"))
             return 40;
         System.out.println("Unidentified item category. Initialising size as 0");
         return 0;
