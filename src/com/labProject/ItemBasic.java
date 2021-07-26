@@ -12,7 +12,7 @@ public class ItemBasic{
     private SimpleFloatProperty price;
     private SimpleIntegerProperty space_per_unit;
     private SimpleIntegerProperty qty;
-    private SimpleStringProperty whoProduced;
+    private SimpleStringProperty producerID;
     private SimpleStringProperty unit;
     // in case of producer, the price he is selling at;
     //in case of consumer the price he is buying at.
@@ -63,5 +63,9 @@ public class ItemBasic{
 
     public void setPrice(float price) {
         this.price = new SimpleFloatProperty(price);
+    }
+
+    public String getProducerID(){
+        return producerID.get();
     }
 }

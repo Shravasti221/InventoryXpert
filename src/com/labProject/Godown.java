@@ -69,7 +69,7 @@ public class Godown{
     }
 
     synchronized public void buyItem(ItemBasic consumer_item) throws ItemError{
-        int index = -1;
+        int pos = -1;
         String searchID = consumer_item.getID();
         int qty = consumer_item.getQty();
         ItemBasic item_revised;
@@ -77,16 +77,22 @@ public class Godown{
             if (searchID.equals(i.get(j).getID()))
                 if (i.get(j).getQty() >= qty){
                     qty = i.get(j).getQty() - qty;
-                    index = j;
+                    pos = j;
                     break;
             }
-        if(index != -1) {
-            item_revised = i.remove(index);
+        if(pos != -1) {
+            int producerIndex = index.get(i.get(pos).getProducerID());
+            Producer p_ = p.remove(producerIndex);
+            item_revised = i.remove(pos);
+            p_.editRevenueEarned(consumer_item.getAmount());
             item_revised.setQty(qty);
-            i.add(item_revised);
+            if(qty !=0) {
+                i.add(item_revised);
+            }
+            p.add(producerIndex, p_);
         }
         else
-            throw new ItemError(consumer_item.getID());
+            throw new ItemError(consumer_item.getID() + ": "+ consumer_item.getName());
     }
 
     synchronized public void addItem(ItemBasic item){

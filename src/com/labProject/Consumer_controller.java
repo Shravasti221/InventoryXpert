@@ -13,6 +13,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class Consumer_controller implements Initializable {
@@ -46,6 +47,15 @@ public class Consumer_controller implements Initializable {
     private TableView productTable;
     @FXML
     private HBox hBox;
+
+    @FXML
+    private Button btnReceipt;
+    @FXML
+    private TitledPane receiptPane;
+    @FXML
+    private Button btnPaid;
+    @FXML
+    private Label lblPaid;
 
     public void initialize(URL location, ResourceBundle resources) {
         /*SHRAVYA:
@@ -89,6 +99,7 @@ public class Consumer_controller implements Initializable {
         cartTable.setVisible(false);
         productTable.setVisible(true);
         hBox.setVisible(true);
+        receiptPane.setVisible(false);
 
     }
 
@@ -103,6 +114,39 @@ public class Consumer_controller implements Initializable {
             signoutPane.setVisible(false);
             signoutPane.toBack();
         }
+    }
+
+    @FXML
+    public void ReceiptPane(){
+        cartTable.setVisible(true);
+        productTable.setVisible(false);
+        receiptPane.toFront();
+        receiptPane.setVisible(true);
+        String s = new String("The following items could not be added:");
+        try {
+            ArrayList<String> itemsNotInCart = c.checkoutCart();
+            try {
+                for (String s_ : itemsNotInCart)
+                    s += "\n" + s_;
+            }catch(NullPointerException e_){
+                s  = "All Items were successfully Added";
+            }
+        }catch(NullPointerException e){
+            s = "No items in cart.";
+        }
+        s += "Please scan the QR Code\n and pay Rs." + c.getAmount();
+        lblPaid.setText(s);
+    }
+    @FXML
+    void ReceiptClose(){
+        lblPaid.setText("Thank you! Please visit again.");
+        try {
+            Thread.sleep(2000);
+        }catch (InterruptedException e){
+            e.printStackTrace();
+        }
+        Stage stage = (Stage) btnSignout.getScene().getWindow();
+        stage.close();
     }
 
     @FXML

@@ -27,4 +27,9 @@ public class Consumer extends User{
         return ret_val;
     }
 
+    public float getAmount() {
+        return amount;
+    }
+
+
 }
