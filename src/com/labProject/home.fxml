@@ -18,7 +18,7 @@
                   </columnConstraints>
                   <ImageView fx:id="imgConsumer" fitHeight="81.0" fitWidth="126.0" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                       <image>
-                          <Image url="@../../../imgs/shopper.png" />
+                          <Image url="file:/C:/Users/Shravya%20Dasu/IdeaProjects/JavaFXPartB/imgs/shopper.png" />
                       </image>
                   </ImageView>
                   <TextField fx:id="userNameFieldConsumer" minWidth="-Infinity" onAction="#okConsumer" prefHeight="25.0" prefWidth="203.0" promptText="Username" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
@@ -56,7 +56,7 @@
                     </columnConstraints>
                     <ImageView fx:id="imgProducer" fitHeight="81.0" fitWidth="126.0" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                         <image>
-                            <Image url="@../../../imgs/farmer.png" />
+                            <Image url="file:/C:/Users/Shravya%20Dasu/IdeaProjects/JavaFXPartB/imgs/farmer.png" />
                         </image>
                     </ImageView>
                     <TextField fx:id="userNameFieldProducer" minWidth="-Infinity" onAction="#okProducer" prefHeight="25.0" prefWidth="203.0" promptText="Username" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
@@ -93,7 +93,7 @@
                     </columnConstraints>
                     <ImageView fx:id="imgCA" fitHeight="81.0" fitWidth="126.0" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                         <image>
-                            <Image url="@../../../imgs/CA.png" />
+                            <Image url="file:/C:/Users/Shravya%20Dasu/IdeaProjects/JavaFXPartB/imgs/CA.png" />
                         </image>
                     </ImageView>
                     <TextField fx:id="mobileCA" minWidth="-Infinity" onAction="#okProducer" prefHeight="25.0" prefWidth="203.0" promptText="Mobile Number" GridPane.halignment="CENTER" GridPane.valignment="CENTER">

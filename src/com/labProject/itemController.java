@@ -12,14 +12,6 @@ import java.util.ResourceBundle;
 
 public class itemController implements Initializable
 {
-    public TableView<ItemBasic> productTable;
-
-    public TableColumn<ItemBasic,String> itemIDProduct;
-    public TableColumn<ItemBasic,String> itemNameProduct;
-    public TableColumn<ItemBasic,Float> costProduct;
-    public TableColumn<ItemBasic,Integer> unitProduct;
-    public TableColumn<ItemBasic,Integer> qtyAvailableProduct;
-    //public TableColumn<ItemBasic,Boolean> addToCartProduct;
 
 
     int assign_size(String type_of_obj){
@@ -59,16 +51,8 @@ public class itemController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)
     {
-        itemIDProduct.setCellValueFactory(new PropertyValueFactory<>("Name"));
-        itemNameProduct.setCellValueFactory(new PropertyValueFactory<>("ID"));
-        costProduct.setCellValueFactory(new PropertyValueFactory<>("Price"));
-        unitProduct.setCellValueFactory(new PropertyValueFactory<>("Unit"));
-        qtyAvailableProduct.setCellValueFactory(new PropertyValueFactory<>("Qty"));
-        //addToCartProduct.setCellValueFactory(new PropertyValueFactory<>("Name"));
-        productTable.setItems(observableList);
+
     }
 
-    ObservableList<ItemBasic> observableList= FXCollections.observableArrayList(
-            //new ItemBasic("Ram","123",23,4,5,true)
-    );
+
 }
