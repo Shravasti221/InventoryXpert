@@ -1,6 +1,7 @@
 package com.labProject;
 
 import java.util.ArrayList;
+import java.util.Random;
 interface IDextractor{
     int get(String s);
 }
@@ -55,6 +56,12 @@ public class Godown{
                 System.out.println("All names added");
                 break;
             }
+        }
+        String unitNames[] = {"kg", "l", "ml", "g", "cartons", "bottles"};
+        Random rand = new Random();
+;        for(int k = 0; k<40; k++){
+            //ItemBasic(String ID, String Name, String Prod, String unit, int qty, float Price, int Space)
+            this.i.add(new ItemBasic(("IT" + k),"ItemName1", "PROD"+rand.nextInt(20), unitNames[rand.nextInt(6)], rand.nextInt(50), rand.nextFloat()*100f, rand.nextInt(300) ));
         }
         print_vals();
     }

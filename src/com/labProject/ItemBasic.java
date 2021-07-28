@@ -19,6 +19,16 @@ public class ItemBasic{
     private SimpleStringProperty name;
     private SimpleStringProperty ID;
 
+    ItemBasic(String ID, String Name, String Prod, String unit, int qty, float Price, int Space){
+        this.ID = new SimpleStringProperty(ID);;
+        this.name = new SimpleStringProperty(Name);
+        this.price = new SimpleFloatProperty(Price);
+        this.space_per_unit = new SimpleIntegerProperty(Space);
+        this.qty = new SimpleIntegerProperty(qty);
+        this.producerID = new SimpleStringProperty(Prod);
+        this.unit = new SimpleStringProperty(unit);
+    }
+
 
     //Issued by the godown classHK,/LL
 
@@ -68,4 +78,6 @@ public class ItemBasic{
     public String getProducerID(){
         return producerID.get();
     }
+
+
 }
