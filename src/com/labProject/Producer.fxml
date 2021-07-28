@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #05071F;" stylesheets="@style.css" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.labProject.Producer_controller">
+    <children>
+        <TextField layoutX="792.0" layoutY="31.0" prefHeight="27.0" prefWidth="183.0" promptText="search" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" />
+        <TitledPane fx:id="signoutPane" alignment="CENTER" collapsible="false" layoutX="300.0" layoutY="200.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="300.0" style="-fx-border-color: #edfeff; visibility: false;" stylesheets="@style.css" text="Sign out message" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1">
+            <content>
+                <GridPane alignment="CENTER" layoutX="300.0" prefHeight="168.0" prefWidth="288.0">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="134.0" minWidth="10.0" prefWidth="100.99998474121095" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="180.0000152587891" minWidth="10.0" prefWidth="179.0000152587891" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <children>
+                        <Label text="Do you wish to Sign out?" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <ImageView fitHeight="124.0" fitWidth="102.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowSpan="2147483647" GridPane.valignment="CENTER">
+                            <GridPane.margin>
+                                <Insets />
+                            </GridPane.margin>
+                            <image>
+                                <Image url="@../../../imgs/signOutPane.png" />
+                            </image>
+                        </ImageView>
+                        <Button fx:id="btnSignoutYes" mnemonicParsing="false" onAction="#signOutPaneHandler" text="Yes" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                            <GridPane.margin>
+                                <Insets left="20.0" />
+                            </GridPane.margin>
+                        </Button>
+                        <Button fx:id="btnSignoutNo" mnemonicParsing="false" onAction="#signOutPaneHandler" text="No" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                            <GridPane.margin>
+                                <Insets right="20.0" />
+                            </GridPane.margin>
+                        </Button>
+                    </children>
+                </GridPane>
+            </content>
+        </TitledPane>
+
+        <HBox fx:id="hBox" alignment="CENTER_LEFT" layoutX="326.0" layoutY="71.0" prefHeight="92.0" prefWidth="420.0" spacing="50.0" style="-fx-background-color: #05071F;">
+            <children>
+                <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                    <children>
+                        <Label fx:id="lblProducerID" text="PROD" textFill="#2a73ff">
+                            <font>
+                                <Font name="System Bold" size="21.0" />
+                            </font>
+                        </Label>
+                        <Label text="UserID" textFill="#e7e5e5" />
+                    </children>
+                </VBox>
+                <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                    <children>
+                        <Label fx:id="lblnoOfItems" text="0" textFill="#26bfbc">
+                            <font>
+                                <Font name="System Bold" size="26.0" />
+                            </font>
+                        </Label>
+                        <Label text="Items in Inventory" textFill="#e7e5e5" />
+                    </children>
+                </VBox>
+                <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                    <children>
+                        <Label fx:id="lblRevenueEarned" text="Rs.0" textFill="#fa5f7e">
+                            <font>
+                                <Font name="System Bold" size="26.0" />
+                            </font>
+                        </Label>
+                        <Label text="Revenue Earned" textFill="#e7e5e5" />
+                    </children>
+                </VBox>
+            </children>
+        </HBox>
+
+        <VBox fx:id="pnlButtons" alignment="TOP_CENTER" prefHeight="576.0" prefWidth="256.0" style="-fx-background-color: #05071F;">
+            <children>
+                <ImageView fitHeight="73.0" fitWidth="67.0" pickOnBounds="true" preserveRatio="true">
+                    <VBox.margin>
+                        <Insets bottom="10.0" top="50.0" />
+                    </VBox.margin>
+                    <image>
+                        <Image url="file:/C:/Users/Admin/Documents/RVCE/OOPs/JavaFXPartB_1/imgs/person.png" />
+                    </image></ImageView>
+                <Label fx:id="lblProducerName" text="Producer" textFill="#e7e5e5">
+                    <VBox.margin>
+                        <Insets bottom="20.0" />
+                    </VBox.margin>
+                    <font>
+                        <Font name="Nirmala UI" size="20.0" />
+                    </font>
+                </Label>
+                <Button fx:id="btnProducts" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css" text="Products" textAlignment="JUSTIFY">
+                    <graphic>
+                        <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../../../imgs/cart2.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                    <padding>
+                        <Insets left="50.0" />
+                    </padding>
+                    <font>
+                        <Font name="Fira Code Medium" size="12.0" />
+                    </font>
+                </Button>
+            <Button fx:id="btnAddItem" alignment="BASELINE_LEFT" graphicTextGap="22.0" layoutX="10.0" layoutY="261.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css" text="Add Item">
+               <graphic>
+                  <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                     <effect>
+                        <Bloom threshold="0.65" />
+                     </effect>
+                  </ImageView>
+               </graphic>
+               <padding>
+                  <Insets left="50.0" />
+               </padding>
+               <font>
+                  <Font name="Fira Code Medium" size="12.0" />
+               </font>
+            </Button>
+                <Button fx:id="btnCollectRevenue" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css" text="Collect Revenue">
+                    <graphic>
+                        <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                            <effect>
+                                <Bloom threshold="0.65" />
+                            </effect>
+                        </ImageView>
+                    </graphic>
+                    <padding>
+                        <Insets left="50.0" />
+                    </padding>
+                    <font>
+                        <Font name="Fira Code Medium" size="12.0" />
+                    </font>
+                </Button>
+                <Button fx:id="btnSignout" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#signOutPaneHandler" prefHeight="42.0" prefWidth="259.0" stylesheets="@style.css" text="Sign Out">
+                    <graphic>
+                        <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../../../imgs/signout.jpg" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                    <padding>
+                        <Insets left="50.0" />
+                    </padding>
+                    <font>
+                        <Font name="Fira Code Medium" size="12.0" />
+                    </font>
+                </Button>
+
+            </children>
+        </VBox>
+        <TableView fx:id="productTable" layoutX="350.0" layoutY="200.0" prefHeight="257.0" prefWidth="476.0">
+            <columns>
+                <TableColumn fx:id="itemIDProduct" editable="false" prefWidth="87.33334350585938" text="ItemID" />
+                <TableColumn fx:id="itemNameProduct" editable="false" prefWidth="103.33334350585938" text="Item" />
+                <TableColumn fx:id="costProduct" editable="false" prefWidth="104.0" text="Cost" />
+                <TableColumn fx:id="unitProduct" editable="false" prefWidth="73.3333740234375" text="Unit" />
+                <TableColumn fx:id="qtyAvailableProduct" editable="false" prefWidth="106.0" text="Qty Available" />
+            </columns>
+        </TableView>
+        <TitledPane fx:id="itemInfoPane" animated="false" layoutX="350.0" layoutY="200.0" prefHeight="324.0" prefWidth="477.0" text="Item Information">
+            <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                    <children>
+                        <GridPane prefHeight="305.0" prefWidth="471.0">
+                            <columnConstraints>
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            </rowConstraints>
+                            <children>
+                                <Label text="Item Type" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+                                <TextField fx:id="txtItemName" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="190.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                                <Label text="Quantity" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+                                <Label text="Item Name" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                                <ChoiceBox fx:id="choiceItemType" prefHeight="25.0" prefWidth="190.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+                                <TextField fx:id="txtItemQty" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="190.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+                                <Button fx:id="btnAddToInventory" mnemonicParsing="false" text="Add to Inventory" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
+                                <Label fx:id="lblItemInfo" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+                        <Label text="Price" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+                        <TextField fx:id="txtItemPrice" maxWidth="-Infinity" prefHeight="25.0" prefWidth="190.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+                            </children>
+                        </GridPane>
+                    </children></AnchorPane>
+            </content>
+        </TitledPane>
+        <Button fx:id="btnStartSession" layoutX="569.0" layoutY="262.0" mnemonicParsing="false" onAction="#setupProducerSpeceficStage" style="-fx-background-color: #182187;" text="CLICK TO START SESSION" textFill="#f3f3f3" />
+    </children>
+    <effect>
+        <DropShadow color="#1b1eeb" />
+    </effect>
+
+</AnchorPane>

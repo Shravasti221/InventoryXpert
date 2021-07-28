@@ -57,7 +57,4 @@ public class User implements Serializable {
         return "UserName:"+ userName + " UserID " + ID + " Password:" + password;
     }
 
-
-
-
 }

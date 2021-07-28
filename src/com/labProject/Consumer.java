@@ -3,7 +3,6 @@ package com.labProject;
 import java.util.ArrayList;
 
 public class Consumer extends User{
-    private static Godown g;
     private ArrayList<ItemBasic> cart;
     private float amount = 0;
     public Consumer( String S, String ID){
@@ -18,7 +17,7 @@ public class Consumer extends User{
         ArrayList<String> ret_val = new ArrayList<String>();
         for (ItemBasic i : cart) {
             try {
-                g.buyItem(i);
+                Main.godown.buyItem(i);
                 this.amount += i.getAmount();
             } catch (ItemError e) {
                 ret_val.add(i.getID());

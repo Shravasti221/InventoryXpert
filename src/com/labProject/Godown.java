@@ -9,9 +9,7 @@ interface IDextractor{
 
 class GodownError extends RuntimeException {
     float space_left;
-    int no_of_items = -1;
-    ItemBasic obj;
-    GodownError(ItemBasic item, float space_left_) {
+    GodownError(float space_left_) {
         this.space_left = space_left_;
     }
 
@@ -22,16 +20,24 @@ class GodownError extends RuntimeException {
 
 class ItemError extends RuntimeException{
     String ID;
-    ItemError(String ID_){
+    int type;
+    ItemError(String ID_, int type){
         this.ID = ID_;
     }
     @Override
     public String toString() {
-        return "ItemError{ Insufficient ID:" + ID + " wrt placed order}";
+        switch(type) {
+            case 1:
+                return "ItemError{ Insufficient ID:" + ID + " wrt placed order}";
+            case 2:
+                return "ItemError{"+ "Error Adding item: " + ID+"to the godown}";
+            default:
+                return "ItemError{" + "item ID:" +ID + "}";
+        }
     }
 }
 public class Godown{
-    int space_left;
+    int space_left = 10000;
     public ArrayList<ItemBasic> i;
     private ArrayList<Consumer> c; // consumers that have registered at the godown
     private ArrayList<Producer> p;  // producers that have registered at the godown
@@ -48,27 +54,42 @@ public class Godown{
         i = new ArrayList<ItemBasic>();
         String NamesConsumer[] = {"Nita", "Ishaan", "Dhruv",  "Shyla", "Amar", "Diya", "Ananya", "Agastya", "Jaya", "Anjali","Nikhil","Sahil","Ishani","Ambar","Darsh","Divya","Ashwin","Deven","Shaila","Shylah","Avany","Artha","Farid","Salina","Charu","Devi","Amitabh", "Lata","Arun","Dhara","Akhilesh", "Arti","Akshay","Bharat","Damayanti","Chander","Salena","Tanaia","Shalene","Shalena","Anand","Shashi","Anusha","Shaleena"};
         String Nums[] = {"9499694505", "9325388957", "9763765185", "9125529525", "9602188949", "9472796414", "9769116584", "9683525623", "9734651717", "9749904136", "9445947172", "9584669108", "9584624066", "9547468861", "9230249439", "9569166219", "9721077437", "9530594659", "9287309613", "9800466058", "9504531844", "9799816588", "9503970289", "9423998666", "9192960646", "9652535599", "9546692028", "9617448045", "9515412117", "9131876074", "9237631023", "9899818981", "9643783112", "9683424343", "9870458046", "9862730744", "9383101227", "9436850572", "9597422446", "9204980797", "9286981822", "9820646940", "9453476790", "9756311900", "9263942984", "9612718486", "9833356832", "9777980817", "9601451998", "9445461558"};
+        String unitNames[] = {"large", "medium", "small", "Kg", "g", "beverage 100ml", "beverage 250ml", "beverage 500ml", "beverage 1l", "beverage 2l", "beverage 5l", "sachets", "packets small", "packets medium", "packets large"};
+        Random rand = new Random();
+        ItemBasic tempItem = new ItemBasic();
+        Producer tempProd = new Producer();
         for(int k =0, j= 0; k< 20 ; k++){
             try {
                 this.c.add(new Consumer(("CONS" + k), NamesConsumer[j++], Nums[j++], ("CONS" + k)));
-                this.p.add(new Producer(("PROD" + k), NamesConsumer[j++], Nums[j++], ("PROD" + k)));
-            }catch(Exception e){
-                System.out.println("All names added");
+                tempProd = new Producer(("PROD" + k), NamesConsumer[j++], Nums[j++], ("PROD" + k));
+                for(int item_iter = 0; item_iter<rand.nextInt(12); item_iter++){
+                    System.out.println("line 1");
+                    tempItem = new ItemBasic(("ItemName"+rand.nextInt(200)), "PROD"+j, unitNames[rand.nextInt(15)], rand.nextInt(50), rand.nextFloat()*10f, rand.nextInt(300) );
+                    System.out.println("line 2");
+                    tempProd.itemsProduced.add(tempItem);
+                    System.out.println("line 3");
+                    this.addItem(tempItem);
+                    System.out.println("line 4");
+                }
+                this.p.add(tempProd);
+            }catch(GodownError space_){
+                System.out.println(space_ + " All items could not be added.");
                 break;
             }
-        }
-        String unitNames[] = {"kg", "l", "ml", "g", "cartons", "bottles"};
-        Random rand = new Random();
-;        for(int k = 0; k<40; k++){
-            //ItemBasic(String ID, String Name, String Prod, String unit, int qty, float Price, int Space)
-            this.i.add(new ItemBasic(("IT" + k),"ItemName1", "PROD"+rand.nextInt(20), unitNames[rand.nextInt(6)], rand.nextInt(50), rand.nextFloat()*100f, rand.nextInt(300) ));
+            catch(Exception e){
+                System.out.println("All names added " + e);
+                //System.out.println(tempItem);
+                //System.out.println(tempProd);
+                print_vals();
+                break;
+            }
         }
         print_vals();
     }
     synchronized public void checkSpace( ItemBasic item){
         try {
             if (space_left < item.getSpace()) {
-                throw new GodownError(item, space_left);
+                throw new GodownError(space_left);
             }
         }catch (GodownError e){
             System.out.println(e);
@@ -99,10 +120,23 @@ public class Godown{
             p.add(producerIndex, p_);
         }
         else
-            throw new ItemError(consumer_item.getID() + ": "+ consumer_item.getName());
+            throw new ItemError(consumer_item.getID() + ": "+ consumer_item.getName(), 0);
     }
 
     synchronized public void addItem(ItemBasic item){
+        if (item.getID().isEmpty()){
+            item.setID("IT"+itemIDCount++);
+        }
+        try {
+            checkSpace(item);
+            int producerno = Integer.parseInt(item.getProducerID().replace("PROD", ""));
+            Producer producer_removed = p.remove(producerno);
+            producer_removed.addItem(item);
+            p.add(producerno, producer_removed);
+        }catch (NumberFormatException e ){
+            System.out.println("Could not extract producer number from Prod:" + item.getProducerID());
+            throw new ItemError(item.getID(), 1);
+        }
         i.add(item);
     }
     synchronized public void addConsumer(Consumer cons){
@@ -110,6 +144,12 @@ public class Godown{
     }
     synchronized public void addProducer(Producer prod) {
         p.add(prod);
+    }
+    synchronized public void updateProducer(Producer prod) {
+        int producerNo = Integer.parseInt(prod.getID().replace("PROD", ""));
+        p.remove(producerNo);
+        p.add(producerNo, prod);
+
     }
     synchronized public String getConsumerID(){return "CONS"+c.size();}
     synchronized public String getProducerID(){return "PROD"+p.size();}

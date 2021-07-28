@@ -10,7 +10,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import java.net.URL;
@@ -78,7 +77,6 @@ public class Consumer_controller implements Initializable {
         ObservableList<ItemBasic> observableList = FXCollections.observableArrayList();
         for (ItemBasic iv : Main.godown.i) {
             observableList.add(iv);
-
         }
         productTable.setItems(observableList);
     }

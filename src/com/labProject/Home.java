@@ -73,7 +73,6 @@ public class Home implements Initializable{
 
     }
 
-
     @FXML
     private void okConsumer() {
         String userName = userNameFieldConsumer.getText();
@@ -97,6 +96,11 @@ public class Home implements Initializable{
             errorLabelProducer.setText("");
         } else {
             errorLabelProducer.setText("Incorrect login details");
+            System.out.println("Username and ID found");
+            errorLabelProducer.setText("");
+            Producer p = Main.godown.getProducer(userName);
+            ProducerThread p_ = new ProducerThread(p);
+            Platform.runLater(p_);
         }
         clearFields();
     }
