@@ -43,8 +43,8 @@ public class Consumer_controller implements Initializable {
 
     @FXML
     private TableView cartTable;
-    //@FXML
-    //private TableView productTable;
+    @FXML
+    private Button btnRefresh;
     @FXML
     private HBox hBox;
 
@@ -79,6 +79,13 @@ public class Consumer_controller implements Initializable {
             observableList.add(iv);
         }
         productTable.setItems(observableList);
+        signoutPane.setVisible(false);
+        //-->
+        cartTable.setVisible(false);
+        productTable.setVisible(false);
+        hBox.setVisible(false);
+        receiptPane.setVisible(false);
+        btnRefresh.setVisible(false);
     }
 
 
@@ -92,8 +99,10 @@ public class Consumer_controller implements Initializable {
         //-->
         cartTable.setVisible(false);
         productTable.setVisible(true);
+        productTable.toFront();
         hBox.setVisible(true);
         receiptPane.setVisible(false);
+        btnRefresh.setVisible(true);
 
     }
 
@@ -142,6 +151,16 @@ public class Consumer_controller implements Initializable {
         Stage stage = (Stage) btnSignout.getScene().getWindow();
         stage.close();
     }
+
+    @FXML
+    public void refreshProductsTable(){
+        ObservableList<ItemBasic> observableList = FXCollections.observableArrayList();
+        for (ItemBasic iv : Main.godown.i) {
+            observableList.add(iv);
+        }
+        productTable.setItems(observableList);
+    }
+
 
     @FXML
     public void handleClicks(ActionEvent actionEvent) {

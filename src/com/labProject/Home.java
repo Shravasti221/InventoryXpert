@@ -163,10 +163,7 @@ public class Home implements Initializable{
         }
 
         if (roleName=="Consumer") {
-            Consumer U = new Consumer(ID, pwd);
-            U.setMobile(mNo);
-            U.setUserName(name);
-            Main.godown.addConsumer(U);
+
         }
     }
 

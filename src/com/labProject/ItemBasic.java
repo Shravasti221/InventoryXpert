@@ -56,10 +56,7 @@ public class ItemBasic{
 
     @Override
     public String toString() {
-        return "The item " + name + '\'' +
-                ", unit='" + unit + '\'' +
-                ", quantity=" + qty +
-                '}';
+        return "The item " + name.getValue()+ ", quantity=" + qty.getValue() + unit.getValue() +", PRODID: "+ producerID.getValue() ;
     }
     public String getName(){
         return this.name.get();

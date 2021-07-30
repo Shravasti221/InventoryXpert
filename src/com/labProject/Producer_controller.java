@@ -23,6 +23,8 @@ public class Producer_controller implements Initializable {
     @FXML
     private Button btnProducts;
     @FXML
+    private Button btnCollectRevenue;
+    @FXML
     private Button btnSignout;
     @FXML
     private TitledPane signoutPane;
@@ -30,6 +32,7 @@ public class Producer_controller implements Initializable {
     private Button btnSignoutYes;
     @FXML
     private Button btnSignoutNo;
+
 
     @FXML
     private Button btnAddItem;
@@ -70,8 +73,8 @@ public class Producer_controller implements Initializable {
 
     public void initialize(URL location, ResourceBundle resources) {
 
-        itemIDProduct.setCellValueFactory(new PropertyValueFactory<>("Name"));
-        itemNameProduct.setCellValueFactory(new PropertyValueFactory<>("ID"));
+        itemIDProduct.setCellValueFactory(new PropertyValueFactory<>("ID"));
+        itemNameProduct.setCellValueFactory(new PropertyValueFactory<>("Name"));
         costProduct.setCellValueFactory(new PropertyValueFactory<>("Price"));
         unitProduct.setCellValueFactory(new PropertyValueFactory<>("Unit"));
         qtyAvailableProduct.setCellValueFactory(new PropertyValueFactory<>("Qty"));
@@ -80,23 +83,8 @@ public class Producer_controller implements Initializable {
         itemInfoPane.setVisible(false);
         productTable.setVisible(false);
 
-        choiceItemType.getItems().add("large");
-        choiceItemType.getItems().add("medium");
-        choiceItemType.getItems().add("small");
-        choiceItemType.getItems().add("Kg");
-        choiceItemType.getItems().add("g");
-        choiceItemType.getItems().add("beverage 100ml");
-        choiceItemType.getItems().add("beverage 250ml");
-        choiceItemType.getItems().add("beverage 500ml");
-        choiceItemType.getItems().add("beverage 1l");
-        choiceItemType.getItems().add("beverage 2l");
-        choiceItemType.getItems().add("beverage 5l");
-        choiceItemType.getItems().add("sachets");
-        choiceItemType.getItems().add("packets small");
-        choiceItemType.getItems().add("packets medium");
-        choiceItemType.getItems().add("packets large");
-
-
+        choiceItemType.getItems().addAll("large", "medium", "small", "Kg", "g", "100ml", "250ml", "500ml", "1l",
+                "2l","5l", "sachet", "packet(small)", "packet(medium)","packet(large)" );
     }
 
 
@@ -105,9 +93,9 @@ public class Producer_controller implements Initializable {
         p = (Producer) thisStage.getUserData();
         lblProducerName.setText(p.getName());
         lblProducerID.setText(p.getID());
-        lblNoOfItems.setText(""+ p.itemsProduced.size());
+        lblNoOfItems.setText(""+ p.itemsProduced().size());
         ObservableList<ItemBasic> observableList = FXCollections.observableArrayList();
-        for (ItemBasic iv : p.itemsProduced) {
+        for (ItemBasic iv : p.itemsProduced()) {
             observableList.add(iv);
         }
         productTable.setItems(observableList);
@@ -115,6 +103,7 @@ public class Producer_controller implements Initializable {
         signoutPane.setVisible(false);
         itemInfoPane.setVisible(false);
         productTable.setVisible(true);
+        productTable.toFront();
         hBox.setVisible(true);
     }
 
@@ -130,8 +119,6 @@ public class Producer_controller implements Initializable {
             signoutPane.toBack();
         }
     }
-
-
 
     @FXML
     void addItem(){
@@ -165,6 +152,7 @@ public class Producer_controller implements Initializable {
             p.addItem(new ItemBasic(itemName, p.getID(), type_of_object, itemQty, itemPrice, assign_size(type_of_object)));
         }catch (GodownError e){
             System.out.println(e);
+            lblItemInfo.setText(e.toString());
         }
         lblItemInfo.setText("The Item was successfully added to the godown.");
     }
@@ -180,25 +168,25 @@ public class Producer_controller implements Initializable {
             return 30;
         else if(type_of_obj.equals("g"))
             return 3;
-        else if(type_of_obj.equals("beverage 100ml"))
+        else if(type_of_obj.equals("100ml"))
             return 10;
-        else if(type_of_obj.equals("beverage 250ml"))
+        else if(type_of_obj.equals("250ml"))
             return 25;
-        else if(type_of_obj.equals("beverage 500ml"))
+        else if(type_of_obj.equals("500ml"))
             return 50;
-        else if(type_of_obj.equals("beverage 1l"))
+        else if(type_of_obj.equals("1l"))
             return 100;
-        else if(type_of_obj.equals("beverage 2l"))
+        else if(type_of_obj.equals("2l"))
             return 200;
-        else if(type_of_obj.equals("beverage 5l"))
+        else if(type_of_obj.equals("5l"))
             return 500;
-        else if(type_of_obj.equals("sachets"))
+        else if(type_of_obj.equals("sachet"))
             return 3;
-        else if(type_of_obj.equals("packets small") )
+        else if(type_of_obj.equals("packet(small)") )
             return 25;
-        else if(type_of_obj.equals("packets medium"))
+        else if(type_of_obj.equals("packet(medium)"))
             return 50;
-        else if(type_of_obj.equals("packets large"))
+        else if(type_of_obj.equals("packet(large)"))
             return 100;
         System.out.println("Unidentified item category. Initialising size as 0");
         return 0;
@@ -208,7 +196,7 @@ public class Producer_controller implements Initializable {
     public void handleClicks(ActionEvent actionEvent) {
         if (actionEvent.getSource() == btnAddItem) {
             productTable.setVisible(false);
-            itemInfoPane.setVisible(false);
+            itemInfoPane.setVisible(true);
             itemInfoPane.toFront();
         }
         if (actionEvent.getSource() == btnProducts) {
@@ -216,6 +204,10 @@ public class Producer_controller implements Initializable {
             productTable.setVisible(true);
             productTable.toFront();
         }
+        if (actionEvent.getSource() == btnCollectRevenue){
+
+        }
+
     }
 
 

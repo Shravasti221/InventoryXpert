@@ -16,11 +16,7 @@
                   <columnConstraints>
                       <ColumnConstraints fillWidth="false" halignment="LEFT" hgrow="ALWAYS" maxWidth="245.66666285196936" minWidth="166.6666590372721" prefWidth="225.66666666666663" />
                   </columnConstraints>
-                  <ImageView fx:id="imgConsumer" fitHeight="81.0" fitWidth="126.0" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                      <image>
-                          <Image url="file:/C:/Users/Shravya%20Dasu/IdeaProjects/JavaFXPartB/imgs/shopper.png" />
-                      </image>
-                  </ImageView>
+                  <ImageView fx:id="imgConsumer" fitHeight="81.0" fitWidth="126.0" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
                   <TextField fx:id="userNameFieldConsumer" minWidth="-Infinity" onAction="#okConsumer" prefHeight="25.0" prefWidth="203.0" promptText="Username" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                       <GridPane.rowIndex>2</GridPane.rowIndex>
                   </TextField>
@@ -54,11 +50,7 @@
                     <columnConstraints>
                         <ColumnConstraints fillWidth="false" halignment="LEFT" hgrow="ALWAYS" maxWidth="245.66666285196936" minWidth="166.6666590372721" prefWidth="225.66666666666663" />
                     </columnConstraints>
-                    <ImageView fx:id="imgProducer" fitHeight="81.0" fitWidth="126.0" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                        <image>
-                            <Image url="file:/C:/Users/Shravya%20Dasu/IdeaProjects/JavaFXPartB/imgs/farmer.png" />
-                        </image>
-                    </ImageView>
+                    <ImageView fx:id="imgProducer" fitHeight="81.0" fitWidth="126.0" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
                     <TextField fx:id="userNameFieldProducer" minWidth="-Infinity" onAction="#okProducer" prefHeight="25.0" prefWidth="203.0" promptText="Username" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                         <GridPane.rowIndex>2</GridPane.rowIndex>
                     </TextField>
@@ -73,7 +65,7 @@
                         <GridPane.margin>
                             <Insets right="30.0" />
                         </GridPane.margin></Button>
-                    <Label text="Consumer" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                    <Label text="Producer" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
                     <Label fx:id="errorLabelProducer" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
                     <rowConstraints>
                         <RowConstraints />
@@ -91,11 +83,7 @@
                     <columnConstraints>
                         <ColumnConstraints fillWidth="false" halignment="LEFT" hgrow="ALWAYS" maxWidth="245.66666285196936" minWidth="166.6666590372721" prefWidth="225.66666666666663" />
                     </columnConstraints>
-                    <ImageView fx:id="imgCA" fitHeight="81.0" fitWidth="126.0" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                        <image>
-                            <Image url="file:/C:/Users/Shravya%20Dasu/IdeaProjects/JavaFXPartB/imgs/CA.png" />
-                        </image>
-                    </ImageView>
+                    <ImageView fx:id="imgCA" fitHeight="81.0" fitWidth="126.0" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
                     <TextField fx:id="mobileCA" minWidth="-Infinity" onAction="#okProducer" prefHeight="25.0" prefWidth="203.0" promptText="Mobile Number" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                         <GridPane.rowIndex>2</GridPane.rowIndex>
                     </TextField>

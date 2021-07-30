@@ -20,22 +20,15 @@ class GodownError extends RuntimeException {
 
 class ItemError extends RuntimeException{
     String ID;
-    int type;
-    ItemError(String ID_, int type){
+    ItemError(String ID_){
         this.ID = ID_;
     }
     @Override
     public String toString() {
-        switch(type) {
-            case 1:
-                return "ItemError{ Insufficient ID:" + ID + " wrt placed order}";
-            case 2:
-                return "ItemError{"+ "Error Adding item: " + ID+"to the godown}";
-            default:
-                return "ItemError{" + "item ID:" +ID + "}";
+                return "ItemError{ Insufficient quantity available for the product ID:" + ID + " wrt placed order}";
         }
     }
-}
+
 public class Godown{
     int space_left = 10000;
     public ArrayList<ItemBasic> i;
@@ -54,52 +47,42 @@ public class Godown{
         i = new ArrayList<ItemBasic>();
         String NamesConsumer[] = {"Nita", "Ishaan", "Dhruv",  "Shyla", "Amar", "Diya", "Ananya", "Agastya", "Jaya", "Anjali","Nikhil","Sahil","Ishani","Ambar","Darsh","Divya","Ashwin","Deven","Shaila","Shylah","Avany","Artha","Farid","Salina","Charu","Devi","Amitabh", "Lata","Arun","Dhara","Akhilesh", "Arti","Akshay","Bharat","Damayanti","Chander","Salena","Tanaia","Shalene","Shalena","Anand","Shashi","Anusha","Shaleena"};
         String Nums[] = {"9499694505", "9325388957", "9763765185", "9125529525", "9602188949", "9472796414", "9769116584", "9683525623", "9734651717", "9749904136", "9445947172", "9584669108", "9584624066", "9547468861", "9230249439", "9569166219", "9721077437", "9530594659", "9287309613", "9800466058", "9504531844", "9799816588", "9503970289", "9423998666", "9192960646", "9652535599", "9546692028", "9617448045", "9515412117", "9131876074", "9237631023", "9899818981", "9643783112", "9683424343", "9870458046", "9862730744", "9383101227", "9436850572", "9597422446", "9204980797", "9286981822", "9820646940", "9453476790", "9756311900", "9263942984", "9612718486", "9833356832", "9777980817", "9601451998", "9445461558"};
-        String unitNames[] = {"large", "medium", "small", "Kg", "g", "beverage 100ml", "beverage 250ml", "beverage 500ml", "beverage 1l", "beverage 2l", "beverage 5l", "sachets", "packets small", "packets medium", "packets large"};
+        String unitNames[] = {"large", "medium", "small", "Kg", "g", "100ml", "250ml", "500ml", "1l", "2l", "5l", "sachet", "packet(small)", "packet(medium)", "packet(large)"};
         Random rand = new Random();
         ItemBasic tempItem = new ItemBasic();
-        Producer tempProd = new Producer();
+
         for(int k =0, j= 0; k< 20 ; k++){
             try {
-                this.c.add(new Consumer(("CONS" + k), NamesConsumer[j++], Nums[j++], ("CONS" + k)));
-                tempProd = new Producer(("PROD" + k), NamesConsumer[j++], Nums[j++], ("PROD" + k));
-                for(int item_iter = 0; item_iter<rand.nextInt(12); item_iter++){
-                    System.out.println("line 1");
-                    tempItem = new ItemBasic(("ItemName"+rand.nextInt(200)), "PROD"+j, unitNames[rand.nextInt(15)], rand.nextInt(50), rand.nextFloat()*10f, rand.nextInt(300) );
-                    System.out.println("line 2");
-                    tempProd.itemsProduced.add(tempItem);
-                    System.out.println("line 3");
-                    this.addItem(tempItem);
-                    System.out.println("line 4");
-                }
-                this.p.add(tempProd);
-            }catch(GodownError space_){
-                System.out.println(space_ + " All items could not be added.");
-                break;
+                this.addConsumer(new Consumer(("CONS" + k), NamesConsumer[j++], Nums[j++], ("CONS" + k)));
+                this.addProducer(new Producer(("PROD" + k), NamesConsumer[j++], Nums[j++], ("PROD" + k)));
+
             }
             catch(Exception e){
                 System.out.println("All names added " + e);
-                //System.out.println(tempItem);
-                //System.out.println(tempProd);
-                print_vals();
                 break;
             }
         }
+        for(int k = 0; k<60; k++) {
+            try {
+                //ItemBasic(String ID, String Name, String Prod, String unit, int qty, float Price, int Space)
+                tempItem = new ItemBasic("itemName"+itemIDCount, "PROD"+rand.nextInt(10), unitNames[rand.nextInt(15)], rand.nextInt(50), rand.nextFloat()*100, rand.nextInt(350));
+                this.addItem(tempItem);
+            } catch (GodownError space_) {
+                System.out.println(tempItem + " not added.");
+            }
+        }
         print_vals();
+
     }
     synchronized public void checkSpace( ItemBasic item){
-        try {
-            if (space_left < item.getSpace()) {
+            if (space_left < item.getSpace())
                 throw new GodownError(space_left);
-            }
-        }catch (GodownError e){
-            System.out.println(e);
-        }
     }
 
-    synchronized public void buyItem(ItemBasic consumer_item) throws ItemError{
+    synchronized public void buyItem(ItemBasic itemBought) throws ItemError{
         int pos = -1;
-        String searchID = consumer_item.getID();
-        int qty = consumer_item.getQty();
+        String searchID = itemBought.getID();
+        int qty = itemBought.getQty();
         ItemBasic item_revised;
         for(int j= 0; j<=i.size(); j++)
             if (searchID.equals(i.get(j).getID()))
@@ -112,32 +95,25 @@ public class Godown{
             int producerIndex = index.get(i.get(pos).getProducerID());
             Producer p_ = p.remove(producerIndex);
             item_revised = i.remove(pos);
-            p_.editRevenueEarned(consumer_item.getAmount());
+            p_.editRevenueEarned(itemBought.getAmount());
             item_revised.setQty(qty);
             if(qty !=0) {
                 i.add(item_revised);
             }
             p.add(producerIndex, p_);
+            System.out.println("Item: " + itemBought +" removed from inventory");
         }
         else
-            throw new ItemError(consumer_item.getID() + ": "+ consumer_item.getName(), 0);
+            throw new ItemError(itemBought.getID() + ": "+ itemBought.getName());
     }
 
     synchronized public void addItem(ItemBasic item){
         if (item.getID().isEmpty()){
             item.setID("IT"+itemIDCount++);
         }
-        try {
-            checkSpace(item);
-            int producerno = Integer.parseInt(item.getProducerID().replace("PROD", ""));
-            Producer producer_removed = p.remove(producerno);
-            producer_removed.addItem(item);
-            p.add(producerno, producer_removed);
-        }catch (NumberFormatException e ){
-            System.out.println("Could not extract producer number from Prod:" + item.getProducerID());
-            throw new ItemError(item.getID(), 1);
-        }
+        checkSpace(item);
         i.add(item);
+        System.out.println("Item: " + item +" added to inventory");
     }
     synchronized public void addConsumer(Consumer cons){
         c.add(cons);

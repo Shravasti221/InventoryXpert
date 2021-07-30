@@ -187,6 +187,7 @@
             </content>
         </TitledPane>
     <Button fx:id="btnStartSession" layoutX="569.0" layoutY="262.0" mnemonicParsing="false" onAction="#setupConsumerSpeceficStage" text="CLICK TO START SESSION" />
+      <Button fx:id="btnRefresh" layoutX="900.0" layoutY="500.0" mnemonicParsing="false" onAction="#refreshProductsTable" text="Refresh" />
     </children>
     <effect>
         <DropShadow color="#1b1eeb" />
