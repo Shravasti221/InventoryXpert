@@ -117,6 +117,7 @@ public class Consumer_controller implements Initializable {
         btnStartSession.setVisible(false);
         signoutPane.setVisible(false);
         cartTable.setVisible(false);
+        receiptPane.setVisible(false);
         productTable.setVisible(true);
         productTable.toFront();
         hBox.setVisible(true);
@@ -131,6 +132,7 @@ public class Consumer_controller implements Initializable {
         signoutPane.setVisible(true);
         if (actionEvent.getSource() == btnSignoutYes) {
             Stage stage = (Stage) btnSignout.getScene().getWindow();
+            c.cart.clear();
             stage.close();
         } else if (actionEvent.getSource() == btnSignoutNo) {
             signoutPane.setVisible(false);
@@ -165,6 +167,7 @@ public class Consumer_controller implements Initializable {
         }catch (InterruptedException e){
             e.printStackTrace();
         }
+        c.cart.clear();
         Stage stage = (Stage) btnSignout.getScene().getWindow();
         stage.close();
     }
@@ -240,11 +243,13 @@ public class Consumer_controller implements Initializable {
     @FXML
     public void handleClicks(ActionEvent actionEvent) {
         if (actionEvent.getSource() == btnCart) {
+            receiptPane.setVisible(false);
             productTable.setVisible(false);
             cartTable.setVisible(true);
             cartTable.toFront();
         }
         if (actionEvent.getSource() == btnProducts) {
+            receiptPane.setVisible(false);
             cartTable.setVisible(false);
             productTable.setVisible(true);
             productTable.toFront();

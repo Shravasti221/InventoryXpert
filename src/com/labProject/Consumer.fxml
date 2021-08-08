@@ -68,9 +68,9 @@
                         <Label text="Items in Cart" textFill="#e7e5e5" />
                     </children>
                 </VBox>
-                <VBox alignment="CENTER" prefHeight="92.0" prefWidth="153.0">
+                <VBox alignment="CENTER" prefHeight="92.0" prefWidth="233.0">
                     <children>
-                        <Label fx:id="lblDispCartCost" alignment="CENTER" contentDisplay="CENTER" prefHeight="38.0" prefWidth="115.0" text="Rs.0" textFill="#fa5f7e">
+                        <Label fx:id="lblDispCartCost" alignment="CENTER" contentDisplay="CENTER" prefHeight="38.0" prefWidth="196.0" text="Rs.0" textFill="#fa5f7e">
                             <font>
                                 <Font name="System Bold" size="26.0" />
                             </font>

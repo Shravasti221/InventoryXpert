@@ -14,6 +14,7 @@ public class Consumer extends User{
         cart = new ArrayList();
     }
     ArrayList<String> checkoutCart() {
+        this.amount = 0;
         ArrayList<String> ret_val = new ArrayList<String>();
         System.out.println("Items in cart in consumer.java : ");
         for (ItemBasic i : cart) {

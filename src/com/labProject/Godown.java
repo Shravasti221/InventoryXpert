@@ -30,7 +30,7 @@ class ItemError extends RuntimeException{
     }
 
 public class Godown{
-    int space_left = 10000;
+    int space_left = 100000;
     public ArrayList<ItemBasic> i;
     public ArrayList<Consumer> c; // consumers that have registered at the godown
     public ArrayList<Producer> p;  // producers that have registered at the godown
@@ -48,6 +48,7 @@ public class Godown{
         String NamesConsumer[] = {"Nita", "Ishaan", "Dhruv",  "Shyla", "Amar", "Diya", "Ananya", "Agastya", "Jaya", "Anjali","Nikhil","Sahil","Ishani","Ambar","Darsh","Divya","Ashwin","Deven","Shaila","Shylah","Avany","Artha","Farid","Salina","Charu","Devi","Amitabh", "Lata","Arun","Dhara","Akhilesh", "Arti","Akshay","Bharat","Damayanti","Chander","Salena","Tanaia","Shalene","Shalena","Anand","Shashi","Anusha","Shaleena"};
         String Nums[] = {"9499694505", "9325388957", "9763765185", "9125529525", "9602188949", "9472796414", "9769116584", "9683525623", "9734651717", "9749904136", "9445947172", "9584669108", "9584624066", "9547468861", "9230249439", "9569166219", "9721077437", "9530594659", "9287309613", "9800466058", "9504531844", "9799816588", "9503970289", "9423998666", "9192960646", "9652535599", "9546692028", "9617448045", "9515412117", "9131876074", "9237631023", "9899818981", "9643783112", "9683424343", "9870458046", "9862730744", "9383101227", "9436850572", "9597422446", "9204980797", "9286981822", "9820646940", "9453476790", "9756311900", "9263942984", "9612718486", "9833356832", "9777980817", "9601451998", "9445461558"};
         String unitNames[] = {"large", "medium", "small", "Kg", "g", "100ml", "250ml", "500ml", "1l", "2l", "5l", "sachet"};
+        int unitSpaces[] = {30, 15, 5, 10, 3, 5, 10, 15, 30, 40, 50, 1};
         Random rand = new Random();
         ItemBasic tempItem = new ItemBasic();
 
@@ -55,16 +56,16 @@ public class Godown{
             try {
                 this.addConsumer(new Consumer(("CONS" + k), NamesConsumer[j++], Nums[j++], ("CONS" + k)));
                 this.addProducer(new Producer(("PROD" + k), NamesConsumer[j++], Nums[j++], ("PROD" + k)));
-
             }
             catch(Exception e){
                 System.out.println("All names added " + e);
                 break;
             }
         }
-        for(int k = 0; k<60; k++) {
+        for(int k = 0; k<20; k++) {
             try {
-                tempItem = new ItemBasic("itemName"+itemIDCount, "PROD"+rand.nextInt(10), unitNames[rand.nextInt(12)], rand.nextInt(50), rand.nextFloat()*100, rand.nextInt(20));
+                int temp_val = rand.nextInt(12);
+                tempItem = new ItemBasic("itemName"+itemIDCount, "PROD"+rand.nextInt(10), unitNames[temp_val], rand.nextInt(50), rand.nextFloat()*200, unitSpaces[temp_val]);
                 this.addNewItem(tempItem);
             } catch (GodownError space_) {
                 System.out.println(tempItem + " not added.");
@@ -82,31 +83,17 @@ public class Godown{
         System.out.println("String ID to search: " + itemBought.getID() );//+ " qty: " + itemBought.getQty());
         for(ItemBasic godownItem: i) {
             if (godownItem.getID().equals(itemBought.getID())){
-                //debug code
-                if(godownItem == itemBought)
-                    System.out.println("GodownItem and itemBought are the same");
-                else if(godownItem.equals(itemBought))
-                    System.out.println("GodownItem and itemBought are equal");
-
-
                 if (godownItem.getQty() < itemBought.getQty()) {
                     System.out.println("Insufficient Quantity");
                     throw new ItemError(itemBought.getID());
                 }
-                System.out.println("Entered buy item if if: with godownItem as : " + godownItem);
+                System.out.println("Entered buy item with godownItem as : " + godownItem);
                 godownItem.setQty(godownItem.getQty() - itemBought.getQty());
                 System.out.println("Updated godownItem : " + godownItem);
                 System.out.println("Original godown Space : " + space_left);
-                this.space_left -= godownItem.getSpace()*itemBought.getQty();
+                this.space_left += godownItem.getSpace()*itemBought.getQty();
                 System.out.println("Updated godown Space : " + space_left);
                 getProducer(godownItem.getProducerID()).editRevenueEarned(godownItem.getPrice()*itemBought.getQty());
-
-                //debug code
-                if(godownItem == itemBought)
-                    System.out.println("GodownItem and itemBought are the same");
-                else if(godownItem.equals(itemBought))
-                    System.out.println("GodownItem and itemBought are equal");
-
                 return;
             }
         }
