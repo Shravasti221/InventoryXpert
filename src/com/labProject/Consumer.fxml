@@ -9,7 +9,6 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="576.0" prefWidth="1050.0" style="-fx-background-color: #02030A;" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.labProject.Consumer_controller">
     <children>
-        <TextField layoutX="792.0" layoutY="31.0" prefHeight="27.0" prefWidth="183.0" promptText="search" style="-fx-background-color: #02030A; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" />
         <TitledPane fx:id="signoutPane" alignment="CENTER" collapsible="false" layoutX="300.0" layoutY="200.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="300.0" style="-fx-border-color: #edfeff; visibility: false;" stylesheets="@style.css" text="Sign out message" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1">
             <content>
                 <GridPane alignment="CENTER" layoutX="300.0" prefHeight="168.0" prefWidth="288.0">
@@ -47,7 +46,7 @@
             </content>
         </TitledPane>
 
-        <HBox fx:id="hBox" alignment="CENTER_LEFT" layoutX="326.0" layoutY="71.0" prefHeight="92.0" prefWidth="420.0" spacing="50.0">
+        <HBox fx:id="hBox" alignment="CENTER_LEFT" layoutX="326.0" layoutY="71.0" prefHeight="92.0" prefWidth="464.0" spacing="50.0">
             <children>
                 <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                     <children>
@@ -61,7 +60,7 @@
                 </VBox>
                 <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                     <children>
-                        <Label text="0" textFill="#26bfbc">
+                        <Label fx:id="lblDispCartItems" alignment="CENTER" prefHeight="38.0" prefWidth="83.0" text="0" textFill="#26bfbc">
                             <font>
                                 <Font name="System Bold" size="26.0" />
                             </font>
@@ -69,9 +68,9 @@
                         <Label text="Items in Cart" textFill="#e7e5e5" />
                     </children>
                 </VBox>
-                <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                <VBox alignment="CENTER" prefHeight="92.0" prefWidth="153.0">
                     <children>
-                        <Label text="Rs.0" textFill="#fa5f7e">
+                        <Label fx:id="lblDispCartCost" alignment="CENTER" contentDisplay="CENTER" prefHeight="38.0" prefWidth="115.0" text="Rs.0" textFill="#fa5f7e">
                             <font>
                                 <Font name="System Bold" size="26.0" />
                             </font>
@@ -154,23 +153,23 @@
 
             </children>
         </VBox>
+      <TableView fx:id="cartTable" layoutX="344.0" layoutY="210.0" prefHeight="257.0" prefWidth="493.0">
+         <columns>
+             <TableColumn fx:id="itemIDCart" editable="false" prefWidth="75.0" text="ItemID" />
+             <TableColumn fx:id="itemNameCart" editable="false" prefWidth="115.33328247070312" text="Item" />
+             <TableColumn fx:id="costCart" editable="false" prefWidth="78.0" text="Cost" />
+             <TableColumn fx:id="unitCart" editable="false" prefWidth="54.33331298828125" text="Unit" />
+             <TableColumn fx:id="qtyCart" editable="false" prefWidth="114.0" text="Qty Available" />
+         </columns>
+      </TableView>
       <TableView fx:id="productTable" layoutX="334.0" layoutY="200.0" prefHeight="257.0" prefWidth="547.0">
         <columns>
           <TableColumn fx:id="itemIDProduct" editable="false" prefWidth="75.0" text="ItemID" />
           <TableColumn fx:id="itemNameProduct" editable="false" prefWidth="115.33328247070312" text="Item" />
           <TableColumn fx:id="costProduct" editable="false" prefWidth="78.0" text="Cost" />
           <TableColumn fx:id="unitProduct" editable="false" prefWidth="54.33331298828125" text="Unit" />
-          <TableColumn fx:id="qtyAvailableProduct" editable="false" prefWidth="114.0" text="Qty Available" />
+          <TableColumn fx:id="qtyAvailableProduct" editable="false" prefWidth="114.0" text="Qty Purchased" />
         </columns>
-      </TableView>
-      <TableView fx:id="cartTable" layoutX="344.0" layoutY="210.0" prefHeight="257.0" prefWidth="493.0">
-         <columns>
-            <TableColumn fx:id="itemIDCart" editable="false" prefWidth="75.0" text="ItemID" />
-            <TableColumn fx:id="qtyCart" prefWidth="71.66668701171875" text="Qty" visible="false" />
-            <TableColumn fx:id="costCart" editable="false" prefWidth="109.66668701171875" text="Cost per unit" />
-            <TableColumn fx:id="amountCart" editable="false" prefWidth="119.6666259765625" text="Amount" />
-            <TableColumn fx:id="itemNameCart" editable="false" prefWidth="115.33328247070312" text="Item" />
-         </columns>
       </TableView>
         <TitledPane fx:id="receiptPane" animated="false" layoutX="437.0" layoutY="163.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="400.0" text="Scan the QR Code and Pay">
             <content>
@@ -187,7 +186,31 @@
             </content>
         </TitledPane>
     <Button fx:id="btnStartSession" layoutX="569.0" layoutY="262.0" mnemonicParsing="false" onAction="#setupConsumerSpeceficStage" text="CLICK TO START SESSION" />
-      <Button fx:id="btnRefresh" layoutX="900.0" layoutY="500.0" mnemonicParsing="false" onAction="#refreshProductsTable" text="Refresh" />
+      <Button fx:id="btnRefresh" layoutX="940.0" layoutY="435.0" mnemonicParsing="false" onAction="#refreshProductsTable" text="Refresh" />
+      <VBox alignment="CENTER" layoutX="900.0" layoutY="300.0" prefHeight="92.0" prefWidth="138.0">
+         <children>
+            <Label fx:id="lblDelItem" prefHeight="31.0" prefWidth="131.0" text="Delete Item" textFill="#2a73ff">
+               <font>
+                  <Font name="System Bold" size="21.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtDelItem" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="108.0" />
+         </children>
+      </VBox>
+      <VBox alignment="CENTER" layoutX="900.0" layoutY="200.0" prefHeight="100.0" prefWidth="139.0">
+         <children>
+            <Label fx:id="lblAddItem" alignment="CENTER" prefHeight="31.0" prefWidth="125.0" text="Add Item" textFill="#2a73ff">
+               <font>
+                  <Font name="System Bold" size="21.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtAddItem" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="108.0" promptText="Item ID" />
+            <TextField fx:id="txtAddItemQty" layoutX="30.0" layoutY="59.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="108.0" promptText="Item Quantity">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin></TextField>
+         </children>
+      </VBox>
     </children>
     <effect>
         <DropShadow color="#1b1eeb" />

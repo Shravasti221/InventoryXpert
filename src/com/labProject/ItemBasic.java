@@ -46,52 +46,32 @@ public class ItemBasic{
         this.producerID = new SimpleStringProperty(Prod);
         this.unit = new SimpleStringProperty(unit);
     }
-
-
-    //Issued by the godown classHK,/LL
-
-    float getSpace(){
+    int getSpace(){
         return qty.get() * space_per_unit.get();
     }
 
     @Override
     public String toString() {
-        return "The item " + name.getValue()+ ", quantity=" + qty.getValue() + unit.getValue() +", PRODID: "+ producerID.getValue() ;
-    }
-    public String getName(){
-        return this.name.get();
-    }
-    public String getID() {
-        return ID.get();
-    }
-    public String getProducerID(){
-        return producerID.get();
-    }
-    public int getQty() {
-        return qty.get();
-    }
-    public float getAmount(){
-        return qty.get() *price.get();
-    }
-    public float getPrice() {
-        return price.get();
-    }
-    public String getUnit() {
-        return unit.get();
+        return "Item ID:" + ID.get() + ", name: " + name.getValue()+ ",qty: " + qty.getValue() + " " + unit.getValue() +", PRODID: "+ producerID.getValue() + "\n" ;
     }
 
-    public void setQty(int q) {
-        this.qty = new SimpleIntegerProperty(q);
-    }
+    public String getID() { return this.ID.get(); }
+    public String getProducerID(){ return producerID.get();}
+    public int getQty() { return qty.get();}
+    public float getAmount(){ return qty.get() *price.get();}
+    public float getPrice() { return price.get();}
+    public String getName(){ return name.get();}
+    public String getUnit() { return unit.get();}
 
-    public void setID(String ID_) {
-        this.ID.set(ID_);
-    }
+    public void setQty(int q) { this.qty = new SimpleIntegerProperty(q);}
+    public void setID(String ID_) { this.ID.set(ID_);}
 
-    public void setPrice(float price) {
-        this.price = new SimpleFloatProperty(price);
+    public ItemBasic copy(){
+        ItemBasic ret_val = new ItemBasic(this.ID.get(), this.name.get(), this.producerID.get(), this.unit.get(), this.qty.get(), this.price.get(), this.space_per_unit.get());
+        //String Name, String Prod, String unit, int qty, float Price, int Space
+        //System.out.println("Ret_val in copy function is : " + ret_val);
+        return ret_val;
     }
-
 
 
 

@@ -18,9 +18,6 @@ import java.util.ResourceBundle;
 
 public class Consumer_controller implements Initializable {
     Consumer c;
-
-    @FXML
-    private VBox pnlButtons = null;
     @FXML
     private Button btnProducts;
     @FXML
@@ -41,12 +38,24 @@ public class Consumer_controller implements Initializable {
     @FXML
     private Button btnStartSession;
 
-    @FXML
-    private TableView cartTable;
+
     @FXML
     private Button btnRefresh;
     @FXML
     private HBox hBox;
+    @FXML
+    private Label lblDispCartCost;
+    @FXML
+    private Label lblDispCartItems;
+
+    @FXML
+    private TextField txtAddItem;
+    @FXML
+    private TextField txtAddItemQty;
+    @FXML
+    private TextField txtDelItem;
+
+
 
     @FXML
     private Button btnReceipt;
@@ -65,6 +74,12 @@ public class Consumer_controller implements Initializable {
     public TableColumn<ItemBasic,Integer> unitProduct;
     public TableColumn<ItemBasic,Integer> qtyAvailableProduct;
 
+    public TableView<ItemBasic> cartTable;
+    public TableColumn<ItemBasic,String> itemIDCart;
+    public TableColumn<ItemBasic,String> itemNameCart;
+    public TableColumn<ItemBasic,Float> costCart;
+    public TableColumn<ItemBasic,Integer> unitCart;
+    public TableColumn<ItemBasic,Integer> qtyCart;
 
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -79,6 +94,12 @@ public class Consumer_controller implements Initializable {
             observableList.add(iv);
         }
         productTable.setItems(observableList);
+
+        itemIDCart.setCellValueFactory(new PropertyValueFactory<>("ID"));
+        itemNameCart.setCellValueFactory(new PropertyValueFactory<>("Name"));
+        costCart.setCellValueFactory(new PropertyValueFactory<>("Price"));
+        unitCart.setCellValueFactory(new PropertyValueFactory<>("Unit"));
+        qtyCart.setCellValueFactory(new PropertyValueFactory<>("Qty"));
         signoutPane.setVisible(false);
         //-->
         cartTable.setVisible(false);
@@ -88,7 +109,6 @@ public class Consumer_controller implements Initializable {
         btnRefresh.setVisible(false);
     }
 
-
     public void setupConsumerSpeceficStage() {
         Stage thisStage = (Stage) btnStartSession.getScene().getWindow();
         c = (Consumer) thisStage.getUserData();
@@ -96,7 +116,6 @@ public class Consumer_controller implements Initializable {
         lblConsumerID.setText(c.getID());
         btnStartSession.setVisible(false);
         signoutPane.setVisible(false);
-        //-->
         cartTable.setVisible(false);
         productTable.setVisible(true);
         productTable.toFront();
@@ -121,23 +140,21 @@ public class Consumer_controller implements Initializable {
 
     @FXML
     public void ReceiptPane(){
-        cartTable.setVisible(true);
+        cartTable.setVisible(false);
         productTable.setVisible(false);
         receiptPane.toFront();
         receiptPane.setVisible(true);
-        String s = new String("The following items could not be added:");
-        try {
-            ArrayList<String> itemsNotInCart = c.checkoutCart();
-            try {
-                for (String s_ : itemsNotInCart)
-                    s += "\n" + s_;
-            }catch(NullPointerException e_){
-                s  = "All Items were successfully Added";
-            }
-        }catch(NullPointerException e){
-            s = "No items in cart.";
+        String s = "Nothing Set";
+        ArrayList<String> itemsNotInCart = c.checkoutCart();
+        if (itemsNotInCart.isEmpty())
+            s  = "All Items were successfully Added.\n";
+        else {
+            s = "Not added:";
+            for (String s_ : itemsNotInCart)
+                s += "\n" + s_;
         }
-        s += "Please scan the QR Code\n and pay Rs." + c.getAmount();
+
+        s += "\nScan the QR Code\n and pay Rs." + c.getAmount();
         lblPaid.setText(s);
     }
     @FXML
@@ -159,8 +176,66 @@ public class Consumer_controller implements Initializable {
             observableList.add(iv);
         }
         productTable.setItems(observableList);
-    }
 
+        PatternChecker verifier = new PatternChecker();
+        String ItemId_toBeAdded = txtAddItem.getText();
+        String ItemId_toBeDeleted = txtDelItem.getText();
+        String ItemQty_toBeAdded = txtAddItemQty.getText();
+        ItemBasic ret_val;
+
+        if(ItemId_toBeAdded != null && verifier.ItemID().check(ItemId_toBeAdded)){
+            ret_val = Main.godown.getItem(ItemId_toBeAdded);
+            if(ret_val == null)
+                System.out.println("Item of the ID in \"to be Added\" Text field not found");
+            else {
+                System.out.println("Is the retval in consumer_controller == ret_val.copy()?" + (ret_val == ret_val.copy()));
+                ret_val = ret_val.copy();
+                boolean itemNotInCart = true;
+                for (ItemBasic i : c.cart)
+                    if (i.getID().equals(ItemId_toBeAdded)) {
+                        System.out.println("Item already present in cart. Please delete that and try again");
+                        itemNotInCart = false;
+                        break;
+                    }
+                if (verifier.isInt().check(ItemQty_toBeAdded) && itemNotInCart) {
+                    ret_val.setQty(Integer.parseInt(ItemQty_toBeAdded));
+                    c.cart.add(ret_val);
+                    txtAddItem.clear();
+                    txtAddItemQty.clear();
+                }
+                else
+                    System.out.println("The type of quantity has to be Integer");
+            }
+        }
+
+        if(ItemId_toBeDeleted != null && verifier.ItemID().check(ItemId_toBeDeleted)) {
+            ret_val = new ItemBasic();
+            for (ItemBasic i : c.cart)
+                if (i.getID().equals(ItemId_toBeDeleted)) {
+                    ret_val = i;
+                    break;
+                }
+            if (c.cart.remove(ret_val) == true)
+                txtDelItem.clear();
+            else
+                System.out.println("Item of the ID in \"to be deleted\" Text field not found");
+        }
+        observableList = FXCollections.observableArrayList();
+        for (ItemBasic iv : c.cart) {
+            observableList.add(iv);
+        }
+
+        cartTable.setItems(observableList);
+
+        float amt = 0;
+        int noOfItems = 0;
+        for (ItemBasic i : c.cart) {
+            amt += i.getAmount();
+            noOfItems++;
+        }
+        lblDispCartCost.setText("Rs."+amt);
+        lblDispCartItems.setText(""+noOfItems);
+    }
 
     @FXML
     public void handleClicks(ActionEvent actionEvent) {

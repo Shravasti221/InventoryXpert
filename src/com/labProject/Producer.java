@@ -25,8 +25,7 @@ public class Producer extends User {
         this.revenue_earned = 0;
     }
     public void addItem(ItemBasic i){
-        Main.godown.addItem(i);
-        Main.godown.updateProducer(this);
+        Main.godown.addNewItem(i);
     }
 
     public ArrayList<ItemBasic> itemsProduced(){

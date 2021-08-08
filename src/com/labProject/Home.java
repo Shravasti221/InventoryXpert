@@ -94,13 +94,13 @@ public class Home implements Initializable{
         String password = passwordFieldProducer.getText();
         if (authenticate(userName, password)) {
             errorLabelProducer.setText("");
-        } else {
-            errorLabelProducer.setText("Incorrect login details");
             System.out.println("Username and ID found");
             errorLabelProducer.setText("");
             Producer p = Main.godown.getProducer(userName);
             ProducerThread p_ = new ProducerThread(p);
             Platform.runLater(p_);
+        } else {
+            errorLabelProducer.setText("Incorrect login details");
         }
         clearFields();
     }
@@ -129,15 +129,15 @@ public class Home implements Initializable{
 
     @FXML
     void createUserID(){
+        PatternChecker verifier = new PatternChecker();
         String ID = "";
         String mNo = mobileCA.getText();
         String name = NameCA.getText();
         String pwd = passwordFieldCA.getText();
         String roleName = (String) typeCA.getValue();
-
-        if(mNo.isEmpty() || isValidMobileNo(mNo)) writeToErrorPane("Error","Enter valid mobile number");
+        if(mNo.isEmpty() || verifier.mno().check(mNo) == false) writeToErrorPane("Error","Enter valid mobile number");
         else if(name.isEmpty()) writeToErrorPane("Error","Enter valid name");
-        else if(pwd.isEmpty()) writeToErrorPane("Error","Enter valid password");
+        else if(pwd.isEmpty() || verifier.password().check(pwd) == false) writeToErrorPane("Error","Enter valid password");
 
         else if (roleName == null){
             writeToErrorPane("Error", "Choose a Role: Producer or Consumer.");
@@ -163,15 +163,11 @@ public class Home implements Initializable{
         }
 
         if (roleName=="Consumer") {
-
+            Consumer U = new Consumer(ID, pwd);
+            U.setMobile(mNo);
+            U.setUserName(name);
+            Main.godown.addConsumer(U);
         }
-    }
-
-    private static boolean isValidMobileNo(String str)
-    {
-        Pattern ptrn = Pattern.compile("(0/91)?[7-9][0-9]{9}");
-        Matcher match = ptrn.matcher(str);
-        return (match.find() && match.group().equals(str));
     }
 
     private boolean authenticate(String userName, String password) {
@@ -203,8 +199,9 @@ public class Home implements Initializable{
         passwordFieldCA.setText("");
         mobileCA.setText("");
     }
-
-
-
+    @FXML
+    private void printGodown(){
+        Main.godown.print_vals();
+    }
 
 }

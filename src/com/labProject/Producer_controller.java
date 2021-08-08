@@ -43,6 +43,8 @@ public class Producer_controller implements Initializable {
     @FXML
     private Label lblNoOfItems;
     @FXML
+    private Label lblRevenueEarned;
+    @FXML
     private Button btnStartSession;
     @FXML
     private HBox hBox;
@@ -84,7 +86,7 @@ public class Producer_controller implements Initializable {
         productTable.setVisible(false);
 
         choiceItemType.getItems().addAll("large", "medium", "small", "Kg", "g", "100ml", "250ml", "500ml", "1l",
-                "2l","5l", "sachet", "packet(small)", "packet(medium)","packet(large)" );
+                "2l","5l", "sachet");
     }
 
 
@@ -94,6 +96,7 @@ public class Producer_controller implements Initializable {
         lblProducerName.setText(p.getName());
         lblProducerID.setText(p.getID());
         lblNoOfItems.setText(""+ p.itemsProduced().size());
+        lblRevenueEarned.setText("Rs." + p.revenue_earned);
         ObservableList<ItemBasic> observableList = FXCollections.observableArrayList();
         for (ItemBasic iv : p.itemsProduced()) {
             observableList.add(iv);
@@ -124,7 +127,7 @@ public class Producer_controller implements Initializable {
     void addItem(){
         String itemName = txtItemName.getText();
         if(itemName.isEmpty()) {
-            lblItemInfo.setText("Select item type");
+            lblItemInfo.setText("Enter the Item Name");
             return;
         }
         int itemQty;
@@ -137,7 +140,7 @@ public class Producer_controller implements Initializable {
         }
         float itemPrice;
         try{
-            itemPrice = Float.parseFloat(txtItemQty.getText());
+            itemPrice = Float.parseFloat(txtItemPrice.getText());
         }catch(NumberFormatException e){
             lblItemInfo.setText("Invalid format for Price field.");
             txtItemPrice.setText("");
@@ -150,46 +153,53 @@ public class Producer_controller implements Initializable {
         }
         try {
             p.addItem(new ItemBasic(itemName, p.getID(), type_of_object, itemQty, itemPrice, assign_size(type_of_object)));
-        }catch (GodownError e){
+            lblItemInfo.setText("The Item was successfully added to the godown.");
+            refresh();
+        }catch (GodownError e) {
             System.out.println(e);
             lblItemInfo.setText(e.toString());
         }
-        lblItemInfo.setText("The Item was successfully added to the godown.");
     }
 
     int assign_size(String type_of_obj){
         if(type_of_obj.equals("large"))
-            return 300;
-        else if(type_of_obj.equals("medium"))
-            return 100;
-        else if(type_of_obj.equals("small"))
-            return 50;
-        else if(type_of_obj.equals("Kg"))
             return 30;
+        else if(type_of_obj.equals("medium"))
+            return 15;
+        else if(type_of_obj.equals("small"))
+            return 5;
+        else if(type_of_obj.equals("Kg"))
+            return 10;
         else if(type_of_obj.equals("g"))
             return 3;
         else if(type_of_obj.equals("100ml"))
-            return 10;
+            return 5;
         else if(type_of_obj.equals("250ml"))
-            return 25;
+            return 10;
         else if(type_of_obj.equals("500ml"))
-            return 50;
+            return 15;
         else if(type_of_obj.equals("1l"))
-            return 100;
+            return 30;
         else if(type_of_obj.equals("2l"))
-            return 200;
+            return 40;
         else if(type_of_obj.equals("5l"))
-            return 500;
-        else if(type_of_obj.equals("sachet"))
-            return 3;
-        else if(type_of_obj.equals("packet(small)") )
-            return 25;
-        else if(type_of_obj.equals("packet(medium)"))
             return 50;
-        else if(type_of_obj.equals("packet(large)"))
-            return 100;
+        else if(type_of_obj.equals("sachet"))
+            return 1;
         System.out.println("Unidentified item category. Initialising size as 0");
         return 0;
+    }
+
+    @FXML
+    private void refresh(){
+        p.revenue_earned = Main.godown.getProducer(p.getID()).revenue_earned;
+        ObservableList<ItemBasic> observableList = FXCollections.observableArrayList();
+        for (ItemBasic iv : p.itemsProduced()) {
+            observableList.add(iv);
+        }
+        productTable.setItems(observableList);
+        lblNoOfItems.setText(""+ p.itemsProduced().size());
+        lblRevenueEarned.setText("Rs." + p.revenue_earned);
     }
 
     @FXML
@@ -205,7 +215,9 @@ public class Producer_controller implements Initializable {
             productTable.toFront();
         }
         if (actionEvent.getSource() == btnCollectRevenue){
-
+            p.revenue_earned = 0;
+            Main.godown.getProducer(p.getID()).resetRevenue_earned();
+            refresh();
         }
 
     }
