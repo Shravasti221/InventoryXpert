@@ -15,7 +15,6 @@ public class ConsumerThread extends Application implements Runnable {
     public void run(){
         Stage stage = new Stage();
         try {
-            System.out.println("Attempting to set up consumer stage");
             this.start(stage);
         }catch (Exception e){
             System.out.println("Consumer :"+ this.c.getID() + "'s stage could not be set up." );
@@ -25,7 +24,6 @@ public class ConsumerThread extends Application implements Runnable {
 
     }
     public void start(Stage ConsumerStage) throws Exception{
-        System.out.println("Line1");
         javafx.scene.layout.AnchorPane _consumerLayout = FXMLLoader.load(getClass().getResource("Consumer.fxml"));
         Scene _consumerScene = new Scene(_consumerLayout);
         ConsumerStage.setUserData(c);

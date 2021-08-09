@@ -68,8 +68,6 @@ public class ItemBasic{
 
     public ItemBasic copy(){
         ItemBasic ret_val = new ItemBasic(this.ID.get(), this.name.get(), this.producerID.get(), this.unit.get(), this.qty.get(), this.price.get(), this.space_per_unit.get());
-        //String Name, String Prod, String unit, int qty, float Price, int Space
-        //System.out.println("Ret_val in copy function is : " + ret_val);
         return ret_val;
     }
 

@@ -30,10 +30,10 @@ class ItemError extends RuntimeException{
     }
 
 public class Godown{
-    int space_left = 100000;
+    private int space_left = 100000;
     public ArrayList<ItemBasic> i;
-    public ArrayList<Consumer> c; // consumers that have registered at the godown
-    public ArrayList<Producer> p;  // producers that have registered at the godown
+    private ArrayList<Consumer> c; // consumers that have registered at the godown
+    private ArrayList<Producer> p;  // producers that have registered at the godown
     IDextractor index = (s)->{
         s = s.replace("PROD", "");
         s = s.replace("CONS", "");
@@ -58,7 +58,6 @@ public class Godown{
                 this.addProducer(new Producer(("PROD" + k), NamesConsumer[j++], Nums[j++], ("PROD" + k)));
             }
             catch(Exception e){
-                System.out.println("All names added " + e);
                 break;
             }
         }
@@ -68,7 +67,7 @@ public class Godown{
                 tempItem = new ItemBasic("itemName"+itemIDCount, "PROD"+rand.nextInt(10), unitNames[temp_val], rand.nextInt(50), rand.nextFloat()*200, unitSpaces[temp_val]);
                 this.addNewItem(tempItem);
             } catch (GodownError space_) {
-                System.out.println(tempItem + " not added.");
+                continue;
             }
         }
         print_vals();
@@ -87,9 +86,8 @@ public class Godown{
                     System.out.println("Insufficient Quantity");
                     throw new ItemError(itemBought.getID());
                 }
-                System.out.println("Entered buy item with godownItem as : " + godownItem);
+                //System.out.println("Entered buy item with godownItem as : " + godownItem);
                 godownItem.setQty(godownItem.getQty() - itemBought.getQty());
-                System.out.println("Updated godownItem : " + godownItem);
                 System.out.println("Original godown Space : " + space_left);
                 this.space_left += godownItem.getSpace()*itemBought.getQty();
                 System.out.println("Updated godown Space : " + space_left);

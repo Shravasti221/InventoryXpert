@@ -93,7 +93,7 @@ public class Producer_controller implements Initializable {
     public void setupProducerSpeceficStage() {
         Stage thisStage = (Stage) btnStartSession.getScene().getWindow();
         p = (Producer) thisStage.getUserData();
-        lblProducerName.setText(p.getName());
+        lblProducerName.setText(p.getUserName());
         lblProducerID.setText(p.getID());
         lblNoOfItems.setText(""+ p.itemsProduced().size());
         lblRevenueEarned.setText("Rs." + p.revenue_earned);
@@ -124,24 +124,25 @@ public class Producer_controller implements Initializable {
     }
 
     @FXML
-    void addItem(){
+    private void addItem(){
         String itemName = txtItemName.getText();
+        PatternChecker ptrn = new PatternChecker();
         if(itemName.isEmpty()) {
             lblItemInfo.setText("Enter the Item Name");
             return;
         }
         int itemQty;
-        try{
+        if(ptrn.isInt().check(txtItemQty.getText()))
             itemQty = Integer.parseInt(txtItemQty.getText());
-        }catch(NumberFormatException e){
+        else{
             lblItemInfo.setText("Invalid format for Quantity field.");
             txtItemQty.setText("");
             return;
         }
         float itemPrice;
-        try{
+        if(ptrn.isFloat().check(txtItemPrice.getText()))
             itemPrice = Float.parseFloat(txtItemPrice.getText());
-        }catch(NumberFormatException e){
+        else{
             lblItemInfo.setText("Invalid format for Price field.");
             txtItemPrice.setText("");
             return;
@@ -161,7 +162,7 @@ public class Producer_controller implements Initializable {
         }
     }
 
-    int assign_size(String type_of_obj){
+    private int assign_size(String type_of_obj){
         if(type_of_obj.equals("large"))
             return 30;
         else if(type_of_obj.equals("medium"))
@@ -203,7 +204,7 @@ public class Producer_controller implements Initializable {
     }
 
     @FXML
-    public void handleClicks(ActionEvent actionEvent) {
+    private void handleClicks(ActionEvent actionEvent) {
         if (actionEvent.getSource() == btnAddItem) {
             productTable.setVisible(false);
             itemInfoPane.setVisible(true);

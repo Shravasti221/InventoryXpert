@@ -120,7 +120,7 @@ public class Home implements Initializable{
     }
 
     @FXML
-    void writeToErrorPane(String title, String s){
+    private void writeToErrorPane(String title, String s){
         errorPane.setText(title);
         errorPane.setVisible(true);
         allTabs.setDisable(true);

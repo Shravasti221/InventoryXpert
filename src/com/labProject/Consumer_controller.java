@@ -54,11 +54,6 @@ public class Consumer_controller implements Initializable {
     private TextField txtAddItemQty;
     @FXML
     private TextField txtDelItem;
-
-
-
-    @FXML
-    private Button btnReceipt;
     @FXML
     private TitledPane receiptPane;
     @FXML
@@ -112,7 +107,7 @@ public class Consumer_controller implements Initializable {
     public void setupConsumerSpeceficStage() {
         Stage thisStage = (Stage) btnStartSession.getScene().getWindow();
         c = (Consumer) thisStage.getUserData();
-        lblConsumerName.setText(c.getName());
+        lblConsumerName.setText(c.getUserName());
         lblConsumerID.setText(c.getID());
         btnStartSession.setVisible(false);
         signoutPane.setVisible(false);

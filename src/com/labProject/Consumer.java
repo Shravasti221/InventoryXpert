@@ -20,10 +20,8 @@ public class Consumer extends User{
         for (ItemBasic i : cart) {
             try {
                 System.out.println(i);
-                System.out.println("Moving to godown to buy items");
                 Main.godown.buyItem(i.copy());
                 this.amount += i.getAmount();
-                System.out.println("Amount for the item " + i + " is " + i.getAmount());
             } catch (ItemError e) {
                 ret_val.add(i.getID());
             }

@@ -26,7 +26,7 @@ public class User implements Serializable {
         this.userName = n;
     }
 
-    public String getName() {
+    public String getUserName() {
         return userName ;
     }
     public String getID(){
