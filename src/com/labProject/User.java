@@ -1,9 +1,5 @@
 package com.labProject;
-
-import java.io.Serializable;
-import java.util.ArrayList;
-
-public class User implements Serializable {
+public class User{
     private String userName ;
     private final String ID;
     private final String password;
@@ -32,8 +28,6 @@ public class User implements Serializable {
     public String getID(){
         return this.ID ;
     }
-    public String getMobile(){return this.mobile;}
-
     public void setUserName(String s){
         this.userName = s;
     }

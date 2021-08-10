@@ -138,6 +138,5 @@
             <Cursor fx:constant="DEFAULT" />
          </cursor>
       </TitledPane>
-      <Button layoutX="397.0" layoutY="301.0" mnemonicParsing="false" onAction="#printGodown" text="Print Godown" />
    </children>
 </AnchorPane>

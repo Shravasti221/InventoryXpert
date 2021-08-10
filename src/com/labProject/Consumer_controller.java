@@ -237,6 +237,8 @@ public class Consumer_controller implements Initializable {
 
     @FXML
     public void handleClicks(ActionEvent actionEvent) {
+        signoutPane.setVisible(false);
+        signoutPane.toBack();
         if (actionEvent.getSource() == btnCart) {
             receiptPane.setVisible(false);
             productTable.setVisible(false);

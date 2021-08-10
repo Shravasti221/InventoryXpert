@@ -15,41 +15,31 @@ import java.util.ResourceBundle;
 
 public class Home implements Initializable{
     private final ObjectProperty<User> user = new SimpleObjectProperty<>();
-
     public final ObjectProperty<User> userProperty() {
         return this.user;
     }
-
     public final com.labProject.User getUser() {
         return this.userProperty().get();
     }
-
     public final void setUser(final com.labProject.User user) {
         this.userProperty().set(user);
     }
-
     @FXML
     private TabPane allTabs;
-
     @FXML
     private TextField userNameFieldConsumer ;
     @FXML
     private PasswordField passwordFieldConsumer ;
     @FXML
     private ImageView imgConsumer;
-
     @FXML
     private Label errorLabelConsumer ;
-
     @FXML
     private TextField userNameFieldProducer ;
     @FXML
     private PasswordField passwordFieldProducer ;
-
     @FXML
     private Label errorLabelProducer ;
-
-
     @FXML
     private TextField NameCA ;
     @FXML
@@ -58,12 +48,10 @@ public class Home implements Initializable{
     private TextField mobileCA;
     @FXML
     private ChoiceBox typeCA;
-
     @FXML
     private TitledPane errorPane;
     @FXML
     private Label errorPaneLabel;
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         typeCA.getItems().add("Consumer");
@@ -72,7 +60,6 @@ public class Home implements Initializable{
         allTabs.setDisable(false);
 
     }
-
     @FXML
     private void okConsumer() {
         String userName = userNameFieldConsumer.getText();
@@ -104,7 +91,6 @@ public class Home implements Initializable{
         }
         clearFields();
     }
-
     @FXML
     private void cancel() {
         setUser(null);
@@ -112,13 +98,11 @@ public class Home implements Initializable{
         errorLabelProducer.setText("");
         errorLabelConsumer.setText("");
     }
-
     @FXML
     private void closeRollError(){
         errorPane.setVisible(false);
         allTabs.setDisable(false);
     }
-
     @FXML
     private void writeToErrorPane(String title, String s){
         errorPane.setText(title);
@@ -126,7 +110,6 @@ public class Home implements Initializable{
         allTabs.setDisable(true);
         errorPaneLabel.setText(s);
     }
-
     @FXML
     void createUserID(){
         PatternChecker verifier = new PatternChecker();
@@ -169,7 +152,6 @@ public class Home implements Initializable{
             Main.godown.addConsumer(U);
         }
     }
-
     private boolean authenticate(String userName, String password) {
         if (userName.isEmpty() || password.isEmpty()) {
             return false ;
@@ -189,7 +171,6 @@ public class Home implements Initializable{
         }
         return false ;
     }
-
     private void clearFields() {
         userNameFieldProducer.setText("");
         passwordFieldProducer.setText("");
@@ -199,9 +180,4 @@ public class Home implements Initializable{
         passwordFieldCA.setText("");
         mobileCA.setText("");
     }
-    @FXML
-    private void printGodown(){
-        Main.godown.print_vals();
-    }
-
 }

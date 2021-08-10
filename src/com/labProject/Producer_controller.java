@@ -64,7 +64,6 @@ public class Producer_controller implements Initializable {
     @FXML
     private Label lblItemInfo;
 
-
     public TableView<ItemBasic> productTable;
     public TableColumn<ItemBasic,String> itemIDProduct;
     public TableColumn<ItemBasic,String> itemNameProduct;

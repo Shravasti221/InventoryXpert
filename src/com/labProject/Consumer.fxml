@@ -9,6 +9,20 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="576.0" prefWidth="1050.0" style="-fx-background-color: #02030A;" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.labProject.Consumer_controller">
     <children>
+        <TitledPane fx:id="receiptPane" animated="false" layoutX="437.0" layoutY="163.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="400.0" text="Scan the QR Code and Pay">
+            <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="202.0" prefWidth="389.0">
+                    <children>
+                        <ImageView fitHeight="111.0" fitWidth="132.0" layoutX="20.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../../../imgs/qrCode.png" />
+                            </image>
+                        </ImageView>
+                        <Button fx:id="btnPaid" layoutX="143.0" layoutY="204.0" mnemonicParsing="false" onAction="#ReceiptClose" prefHeight="28.0" prefWidth="118.0" text="Pay and Terminate" />
+                        <Label fx:id="lblPaid" layoutX="140.0" layoutY="39.0" prefHeight="142.0" prefWidth="241.0" />
+                    </children></AnchorPane>
+            </content>
+        </TitledPane>
         <TitledPane fx:id="signoutPane" alignment="CENTER" collapsible="false" layoutX="300.0" layoutY="200.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="300.0" style="-fx-border-color: #edfeff; visibility: false;" stylesheets="@style.css" text="Sign out message" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1">
             <content>
                 <GridPane alignment="CENTER" layoutX="300.0" prefHeight="168.0" prefWidth="288.0">
@@ -80,6 +94,24 @@
                 </VBox>
             </children>
         </HBox>
+      <TableView fx:id="productTable" layoutX="394.0" layoutY="200.0" prefHeight="268.0" prefWidth="448.0">
+        <columns>
+          <TableColumn fx:id="itemIDProduct" editable="false" prefWidth="75.0" text="ItemID" />
+          <TableColumn fx:id="itemNameProduct" editable="false" prefWidth="115.33328247070312" text="Item" />
+          <TableColumn fx:id="costProduct" editable="false" prefWidth="78.0" text="Cost" />
+          <TableColumn fx:id="unitProduct" editable="false" prefWidth="82.0" text="Unit" />
+          <TableColumn fx:id="qtyAvailableProduct" editable="false" prefWidth="96.0" text="Qty Available" />
+        </columns>
+      </TableView>
+      <TableView fx:id="cartTable" layoutX="394.0" layoutY="199.0" prefHeight="268.0" prefWidth="442.0">
+         <columns>
+             <TableColumn fx:id="itemIDCart" editable="false" prefWidth="75.0" text="ItemID" />
+             <TableColumn fx:id="itemNameCart" editable="false" prefWidth="115.33328247070312" text="Item" />
+             <TableColumn fx:id="costCart" editable="false" prefWidth="78.0" text="Cost" />
+             <TableColumn fx:id="unitCart" editable="false" prefWidth="54.33331298828125" text="Unit" />
+             <TableColumn fx:id="qtyCart" editable="false" prefWidth="114.0" text="Qty Purchased" />
+         </columns>
+      </TableView>
 
         <VBox fx:id="pnlButtons" alignment="TOP_CENTER" prefHeight="576.0" prefWidth="256.0" style="-fx-background-color: #05071F;" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
@@ -153,38 +185,6 @@
 
             </children>
         </VBox>
-      <TableView fx:id="cartTable" layoutX="344.0" layoutY="210.0" prefHeight="257.0" prefWidth="493.0">
-         <columns>
-             <TableColumn fx:id="itemIDCart" editable="false" prefWidth="75.0" text="ItemID" />
-             <TableColumn fx:id="itemNameCart" editable="false" prefWidth="115.33328247070312" text="Item" />
-             <TableColumn fx:id="costCart" editable="false" prefWidth="78.0" text="Cost" />
-             <TableColumn fx:id="unitCart" editable="false" prefWidth="54.33331298828125" text="Unit" />
-             <TableColumn fx:id="qtyCart" editable="false" prefWidth="114.0" text="Qty Available" />
-         </columns>
-      </TableView>
-      <TableView fx:id="productTable" layoutX="334.0" layoutY="200.0" prefHeight="257.0" prefWidth="547.0">
-        <columns>
-          <TableColumn fx:id="itemIDProduct" editable="false" prefWidth="75.0" text="ItemID" />
-          <TableColumn fx:id="itemNameProduct" editable="false" prefWidth="115.33328247070312" text="Item" />
-          <TableColumn fx:id="costProduct" editable="false" prefWidth="78.0" text="Cost" />
-          <TableColumn fx:id="unitProduct" editable="false" prefWidth="54.33331298828125" text="Unit" />
-          <TableColumn fx:id="qtyAvailableProduct" editable="false" prefWidth="114.0" text="Qty Purchased" />
-        </columns>
-      </TableView>
-        <TitledPane fx:id="receiptPane" animated="false" layoutX="437.0" layoutY="163.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="400.0" text="Scan the QR Code and Pay">
-            <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="202.0" prefWidth="389.0">
-                    <children>
-                        <ImageView fitHeight="111.0" fitWidth="132.0" layoutX="20.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../../../imgs/qrCode.png" />
-                            </image>
-                        </ImageView>
-                        <Button fx:id="btnPaid" layoutX="143.0" layoutY="204.0" mnemonicParsing="false" onAction="#ReceiptClose" prefHeight="28.0" prefWidth="118.0" text="Pay and Terminate" />
-                        <Label fx:id="lblPaid" layoutX="140.0" layoutY="39.0" prefHeight="142.0" prefWidth="241.0" />
-                    </children></AnchorPane>
-            </content>
-        </TitledPane>
     <Button fx:id="btnStartSession" layoutX="569.0" layoutY="262.0" mnemonicParsing="false" onAction="#setupConsumerSpeceficStage" text="CLICK TO START SESSION" />
       <Button fx:id="btnRefresh" layoutX="940.0" layoutY="435.0" mnemonicParsing="false" onAction="#refreshProductsTable" text="Refresh" />
       <VBox alignment="CENTER" layoutX="900.0" layoutY="300.0" prefHeight="92.0" prefWidth="138.0">
