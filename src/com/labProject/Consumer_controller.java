@@ -78,8 +78,8 @@ public class Consumer_controller implements Initializable {
 
     public void initialize(URL location, ResourceBundle resources) {
 
-        itemIDProduct.setCellValueFactory(new PropertyValueFactory<>("Name"));
-        itemNameProduct.setCellValueFactory(new PropertyValueFactory<>("ID"));
+        itemIDProduct.setCellValueFactory(new PropertyValueFactory<>("ID"));
+        itemNameProduct.setCellValueFactory(new PropertyValueFactory<>("Name"));
         costProduct.setCellValueFactory(new PropertyValueFactory<>("Price"));
         unitProduct.setCellValueFactory(new PropertyValueFactory<>("Unit"));
         qtyAvailableProduct.setCellValueFactory(new PropertyValueFactory<>("Qty"));
